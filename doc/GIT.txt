@@ -1,0 +1,3 @@
+Скачать и установить gitTortoise. https://tortoisegit.org/download/
+
+git 
