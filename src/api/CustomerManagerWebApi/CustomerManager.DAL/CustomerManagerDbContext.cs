@@ -1,7 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using CustomerManager.DAL.Entities;
 
 namespace CustomerManager.DAL
@@ -9,5 +6,14 @@ namespace CustomerManager.DAL
     public class CustomerManagerDbContext : DbContext
     {
         public DbSet<Request> Requests { get; set; }
+
+        public CustomerManagerDbContext(DbContextOptions<CustomerManagerDbContext> options) : base(options)
+        {
+        }
+
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            optionsBuilder.UseSnakeCaseNamingConvention();
+        }
     }
 }
