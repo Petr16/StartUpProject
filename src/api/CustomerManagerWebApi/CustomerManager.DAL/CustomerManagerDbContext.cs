@@ -13,7 +13,13 @@ namespace CustomerManager.DAL
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
+            optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Username=postgres;Password=123456;Database=CustomerManagerDB;Timeout=30;Enlist=false");
             optionsBuilder.UseSnakeCaseNamingConvention();
+        }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.HasDefaultSchema("CustomerManagerSchema");
         }
     }
 }
