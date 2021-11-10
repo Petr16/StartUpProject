@@ -1,0 +1,3 @@
+[submodule "src/api/lib/PgDbInterface"]
+	path = src/api/lib/PgDbInterface
+	url = https://github.com/Petr16/PgDbInterface.git
