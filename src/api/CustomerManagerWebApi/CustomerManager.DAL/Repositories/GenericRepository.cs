@@ -41,16 +41,16 @@ namespace CustomerManager.DAL.Repositories
             return DbSet;
         }
 
-        public IEnumerable<TEntity> GetAllAsEnumerable(bool asNoTracking = true)
+        public IAsyncEnumerable<TEntity> GetAllAsyncEnumerable(bool asNoTracking = true)
         {
-            IQueryable<TEntity> smth = asNoTracking ? DbSet.AsNoTracking() : DbSet;
-            return smth.AsEnumerable();
+            IQueryable<TEntity> entities = asNoTracking ? DbSet.AsNoTracking() : DbSet;
+            return entities.AsAsyncEnumerable();
         }
 
-        public async Task<List<TEntity>> GetAllToListAsync(bool asNoTracking = true, CancellationToken cancellationToken = default)
+        public async Task<List<TEntity>> GetAllToListAsync(CancellationToken cancellationToken = default, bool asNoTracking = true)
         {
-            IQueryable<TEntity> smth = asNoTracking ? DbSet.AsNoTracking() : DbSet;
-            return await smth.ToListAsync(cancellationToken);
+            IQueryable<TEntity> entities = asNoTracking ? DbSet.AsNoTracking() : DbSet;
+            return await entities.ToListAsync(cancellationToken);
         }
 
         public IQueryable<TEntity> GetWhere(Expression<Func<TEntity, bool>> predicate)
@@ -99,11 +99,14 @@ namespace CustomerManager.DAL.Repositories
             DbSet.Remove(entity);
         }
 
-        public async Task RemoveByIdAsync(params object[] keyValues)
+        public async Task<bool> RemoveByIdAsync(params object[] keyValues)
         {
             TEntity entityToRemove = await DbSet.FindAsync(keyValues);
-            if (entityToRemove != null)
-                DbSet.Remove(entityToRemove);
+            if (entityToRemove == null)
+                return false;
+
+            DbSet.Remove(entityToRemove);
+            return true;
         }
 
         public void RemoveRange(IEnumerable<TEntity> entities)

@@ -29,9 +29,9 @@ namespace CustomerManager.DAL.Repositories.Interfaces
 
         IQueryable<TEntity> GetAll();
 
-        IEnumerable<TEntity> GetAllAsEnumerable(bool asNoTracking = true);
+        IAsyncEnumerable<TEntity> GetAllAsyncEnumerable(bool asNoTracking = true);
 
-        Task<List<TEntity>> GetAllToListAsync(bool asNoTracking = true, CancellationToken cancellationToken = default);
+        Task<List<TEntity>> GetAllToListAsync(CancellationToken cancellationToken = default, bool asNoTracking = true);
 
         /// <summary>
         /// Filters a sequence of values based on a predicate
@@ -55,7 +55,7 @@ namespace CustomerManager.DAL.Repositories.Interfaces
 
         void Remove(TEntity entity);
 
-        Task RemoveByIdAsync(params object[] keyValues);
+        Task<bool> RemoveByIdAsync(params object[] keyValues);
 
         void RemoveRange(IEnumerable<TEntity> entities);
     }
