@@ -5,7 +5,7 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 
-namespace CustomerManager.DAL.Repositories.Interfaces
+namespace CustomerManager.DAL.Repositories
 {
     public interface IGenericRepository<TEntity> where TEntity : class
     {

@@ -25,6 +25,10 @@ namespace CustomerManager.BLL.Services
         public async Task<List<RequestVM>> GetAll(CancellationToken cancellationToken = default)
         {
             List<Request> requests = await UnitOfWork.RequestRepo.GetAllToListAsync(cancellationToken);
+
+            // Пример вызова хранимой функции
+            //List<Request> requests1 = await UnitOfWork.RequestRepo.GetRequestsStoredFuncExample(cancellationToken);
+
             return _mapper.Map<List<RequestVM>>(requests);
         }
 

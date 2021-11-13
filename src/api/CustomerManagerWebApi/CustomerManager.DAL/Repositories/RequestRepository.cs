@@ -1,19 +1,37 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 using CustomerManager.DAL.Entities;
-using CustomerManager.DAL.Repositories.Interfaces;
 
 namespace CustomerManager.DAL.Repositories
 {
     public class RequestRepository : GenericRepository<Request>, IRequestRepository
     {
-        // pass UoW?
+
         public RequestRepository(CustomerManagerDbContext dbContext) : base(dbContext)
         {
         }
 
-        // try parsing some old fashioned dataset
-        // make sure connection is established
+        public async Task<List<Request>> GetRequestsStoredFuncExample(CancellationToken cancellationToken)
+        {
+            var requests = new List<Request>();
+
+            using (var transaction = Database.StartTransaction())
+            using (var ds = await Database.CustomerManagerUtils.GetRequests(cancellationToken))
+            {
+                while (await ds.ReadAsync(cancellationToken))
+                {
+                    requests.Add(new Request
+                    {
+                        Id = ds.GetInt("id") ?? 0,
+                        Name = ds.GetString("name")
+                    });
+                }
+            }
+
+            return requests;
+        }
     }
 }

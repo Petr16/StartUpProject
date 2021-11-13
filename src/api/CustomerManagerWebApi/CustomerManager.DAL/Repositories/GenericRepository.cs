@@ -5,16 +5,16 @@ using System.Linq.Expressions;
 using System.Threading;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using CustomerManager.DAL.Repositories.Interfaces;
+using PgDbInterface.CustomerManager;
+using System.Data;
+using System.Data.Common;
 
 namespace CustomerManager.DAL.Repositories
 {
     public class GenericRepository<TEntity> : IGenericRepository<TEntity> where TEntity : class
     {
-        protected readonly DbContext _context;
-
-        public DbSet<TEntity> DbSet { get; }
-
+        private readonly DbContext _context;
+        private CustomerManagerDatabase _db;
 
         public GenericRepository(DbContext context)
         {
@@ -22,6 +22,31 @@ namespace CustomerManager.DAL.Repositories
             DbSet = _context.Set<TEntity>();
         }
 
+        protected DbSet<TEntity> DbSet { get; }
+
+        /// <summary>
+        /// API для работы с БД CustomerManagerDB
+        /// </summary>
+        protected CustomerManagerDatabase Database
+        {
+            get
+            {
+                if (_db == null)
+                {
+                    var connection = GetDbConnection();
+                    _db = new CustomerManagerDatabase(connection);
+                }
+                return _db;
+            }
+        }
+
+        private DbConnection GetDbConnection()
+        {
+            var connection = _context.Database.GetDbConnection();
+            if (connection.State == ConnectionState.Closed)
+                connection.Open();
+            return connection;
+        }
 
         public Task<int> CountAsync(CancellationToken cancellationToken = default)
         {

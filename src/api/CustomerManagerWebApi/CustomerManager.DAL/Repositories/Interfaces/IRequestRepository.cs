@@ -1,12 +1,17 @@
 ﻿using CustomerManager.DAL.Entities;
-using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Threading;
+using System.Threading.Tasks;
 
-namespace CustomerManager.DAL.Repositories.Interfaces
+namespace CustomerManager.DAL.Repositories
 {
     public interface IRequestRepository : IGenericRepository<Request>
     {
-
+        /// <summary>
+        /// Данный метод является лишь примером вызова хранимой функции.
+        /// <para/>
+        /// В нормальных условиях список заявок должен быть получен средствами Entity Framework.
+        /// </summary>
+        Task<List<Request>> GetRequestsStoredFuncExample(CancellationToken cancellationToken);
     }
 }

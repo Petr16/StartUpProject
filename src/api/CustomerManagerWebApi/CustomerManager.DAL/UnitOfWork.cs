@@ -1,6 +1,5 @@
 ﻿using System.Threading.Tasks;
 using CustomerManager.DAL.Repositories;
-using CustomerManager.DAL.Repositories.Interfaces;
 
 namespace CustomerManager.DAL
 {
