@@ -14,7 +14,7 @@ namespace CustomerManager.API.Controllers
     /// <summary>
     /// Created by "Add>Controller>API controller with read/write actions".
     /// </summary>
-    [Route("api/[controller]")]
+    [Route("api/requests")]
     [ApiController]
     public class RequestsController : ControllerBase
     {
@@ -22,7 +22,7 @@ namespace CustomerManager.API.Controllers
 
         public RequestsController(RequestService requestService)
         {
-            requestService = requestService;
+            _requestService = requestService;
         }
 
         // GET: api/Requests
