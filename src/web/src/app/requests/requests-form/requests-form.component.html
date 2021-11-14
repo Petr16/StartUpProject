@@ -1,0 +1,14 @@
+<form>
+    <input type="hidden" name="id"
+    [value]="service.formData.id" />
+    <div class="form-group">
+        <label>CARD OWNER NAME</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Full Name"
+        name="name" #name="ngModel" [(ngModel)]="service.formData.name">
+    </div>
+    <!-- <div class="form-group">
+        <label>CARD OWNER NAME</label>
+        <input type="text" class="form-control form-control-lg" placeholder="Full Name"
+        name="name" #name="ngModel" [(ngModel)]="service.formData.name">
+    </div> -->
+</form>

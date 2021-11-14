@@ -1,3 +1,4 @@
+//Это главный файл, который загружает все наше приложение
 import { enableProdMode } from '@angular/core';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 

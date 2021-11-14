@@ -36,9 +36,14 @@ namespace CustomerManager.API
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseCors(builder => builder.
-                WithOrigins("http://localhost:5002")
-                //.WithMethods("GET", "POST", "PUT", "DELETE"));
+            //app.UseCors(builder => builder.
+            //    WithOrigins("http://localhost:4200")
+            //    //.WithMethods("GET", "POST", "PUT", "DELETE"));
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader());
+            app.UseCors(builder => builder
+                .SetIsOriginAllowed(url => url.StartsWith("http://localhost:")) // Томская подсеть
+                .WithOrigins("http://localhost:62885") // Временно для отладки. УДАЛИТЬ!
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
