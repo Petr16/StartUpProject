@@ -14,13 +14,14 @@ namespace CustomerManager.BLL.Services
     {
         private readonly IMapper _mapper;
 
-        public IUnitOfWork UnitOfWork { get; }
 
         public RequestService(IUnitOfWork unitOfWork, IMapper mapper)
         {
             UnitOfWork = unitOfWork;
             _mapper = mapper;
         }
+
+        public IUnitOfWork UnitOfWork { get; }
 
         public async Task<List<RequestVM>> GetAll(CancellationToken cancellationToken = default)
         {
@@ -34,19 +35,28 @@ namespace CustomerManager.BLL.Services
 
         public async Task<RequestVM> Get(int id)
         {
-            Request reqToC = await UnitOfWork.RequestRepo.GetByIdAsync(id);
-            return _mapper.Map<RequestVM>(reqToC);
+            Request request = await UnitOfWork.RequestRepo.GetByIdAsync(id);
+            return _mapper.Map<RequestVM>(request);
         }
 
         public async Task<RequestVM> Create(RequestVM requestVM)
         {
-            Request reqToC = _mapper.Map<Request>(requestVM);
-            await UnitOfWork.RequestRepo.AddAsync(reqToC);
+            Request newRequest = _mapper.Map<Request>(requestVM);
+            await UnitOfWork.RequestRepo.AddAsync(newRequest);
             await UnitOfWork.SaveAsync();
 
-            return _mapper.Map<RequestVM>(reqToC);
+            return _mapper.Map<RequestVM>(newRequest);
         }
 
+        public async Task Update(RequestVM requestVM)
+        {
+            Request existingRequest = await UnitOfWork.RequestRepo.GetByIdAsync(requestVM.Id);
+            if (existingRequest == null)
+                throw new ArgumentException($"Изменения не сохранены, т.к. заявка с ID={requestVM.Id} не найдена.");
+
+            _mapper.Map(requestVM, existingRequest);
+            await UnitOfWork.SaveAsync();
+        }
 
         public async Task Delete(int id)
         {

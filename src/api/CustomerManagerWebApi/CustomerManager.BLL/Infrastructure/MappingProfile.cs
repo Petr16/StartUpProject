@@ -9,8 +9,9 @@ namespace CustomerManager.BLL.Infrastructure
     {
         public MappingProfile()
         {
-            CreateMap<Request, RequestVM>();
-            CreateMap<RequestVM, Request>();
+            //CreateMap<Request, RequestVM>();
+            //CreateMap<RequestVM, Request>();
+            CreateMap<Request, RequestVM>().ReverseMap();
         }
     }
 }

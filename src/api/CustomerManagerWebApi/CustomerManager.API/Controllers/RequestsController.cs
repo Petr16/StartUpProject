@@ -36,7 +36,7 @@ namespace CustomerManager.API.Controllers
         [HttpGet("{id}", Name = "Get")]
         public async Task<ActionResult<RequestVM>> Get(int id)
         {
-            var request = await _requestService.Get(id);
+            RequestVM request = await _requestService.Get(id);
             if (request == null)
                 return NotFound();
 
@@ -47,15 +47,26 @@ namespace CustomerManager.API.Controllers
         [HttpPost]
         public async Task<ActionResult<RequestVM>> Post(RequestVM request)
         {
-            var createdRequest = await _requestService.Create(request);
+            RequestVM createdRequest = await _requestService.Create(request);
             return CreatedAtAction(nameof(Get), new { id = createdRequest.Id }, createdRequest);
         }
 
         // PUT: api/Requests/5
         [HttpPut("{id}")]
-        public void Put(int id, RequestVM request)
+        public async Task<ActionResult> Put(int id, RequestVM request)
         {
+            if (id != request.Id)
+                return BadRequest();
 
+            try
+            {
+                await _requestService.Update(request);
+                return NoContent();
+            }
+            catch (ArgumentException)
+            {
+                return NotFound();
+            }
         }
 
         // DELETE: api/ApiWithActions/5
