@@ -25,3 +25,11 @@ Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To u
 ## Further help
 
 To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+
+
+
+Если проблема с цифровыми подписями для ng, то необходимо сделать следующее:
+1) Открыть PowerShell от имени администратора
+2) проверить политики get-executionpolicy -list
+3) установить для LocalMashine:      set-executionpolicy remotesigned
+4) установить политики для CurrentUser:    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser

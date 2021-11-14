@@ -30,11 +30,18 @@ namespace CustomerManager.API
             services.AddCustomerManagerDbContext(Configuration.GetConnectionString("CustomerManagerDB"));
             services.AddCustomerManagerBusinessServices();
             services.AddControllers();
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseCors(builder => builder.
+                WithOrigins("http://localhost:5002")
+                //.WithMethods("GET", "POST", "PUT", "DELETE"));
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -43,6 +50,7 @@ namespace CustomerManager.API
             app.UseHttpsRedirection();
 
             app.UseRouting();
+
 
             app.UseAuthorization();
 
