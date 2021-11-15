@@ -16,6 +16,15 @@
         "ASPNETCORE_ENVIRONMENT": "Development"
       }
     },
+    "Development": {
+      "commandName": "Project",
+      "environmentVariables": {
+        "ASPNETCORE_ENVIRONMENT": "Development"
+      },
+      "sqlDebugging": false,
+      "nativeDebugging": false,
+      "applicationUrl": "http://0.0.0.0:5000"
+    },
     "CustomerManager.API": {
       "commandName": "Project",
       "launchBrowser": true,

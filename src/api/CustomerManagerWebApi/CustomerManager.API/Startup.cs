@@ -37,13 +37,24 @@ namespace CustomerManager.API
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
             //app.UseCors(builder => builder.
-            //    WithOrigins("http://localhost:4200")
+            //    WithOrigins("http://localhost:53653")
             //    //.WithMethods("GET", "POST", "PUT", "DELETE"));
             //    .AllowAnyMethod()
             //    .AllowAnyHeader());
-            app.UseCors(builder => builder
-                .SetIsOriginAllowed(url => url.StartsWith("http://localhost:")) // Томская подсеть
-                .WithOrigins("http://localhost:62885") // Временно для отладки. УДАЛИТЬ!
+            //app.UseCors(builder => builder
+            //    .SetIsOriginAllowed(url => url.StartsWith("http://localhost:")) // Томская подсеть
+            //    .WithOrigins("http://localhost:53653") // Временно для отладки. УДАЛИТЬ!
+            //    .AllowAnyMethod()
+            //    .AllowAnyHeader());
+            //app.UseCors(builder => builder
+            //    .SetIsOriginAllowed(url => url.StartsWith("http://localhost"))
+            //    .WithOrigins("http://localhost:53653")
+            //    .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE")
+            //    .AllowAnyHeader());
+
+            app.UseCors(builder => builder.
+                WithOrigins("http://localhost:53653")
+                //.WithMethods("GET", "POST", "PUT", "DELETE"));
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
