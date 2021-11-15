@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { RequestsService } from '../shared/requests.service';
 
 @Component({
   selector: 'app-requests',
@@ -7,9 +8,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class RequestsComponent implements OnInit {
 
-  constructor() { }
+  constructor(public service: RequestsService) { }
+  RequestsList: any[];
 
   ngOnInit(): void {
+    this.refreshRequestsList();
+  }
+
+  refreshRequestsList(){
+    this.service.getRequestsList().subscribe(data=>{
+      this.RequestsList=data;
+    })
   }
 
 }

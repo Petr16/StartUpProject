@@ -1,4 +1,27 @@
 <div class="container">
     Requests
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>RequestId</th>
+                <th>RequestName</th>
+                <th>Options</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let dataItem of RequestsList">
+                <td>{{dataItem.id}}</td>
+                <td>{{dataItem.name}}</td>
+                <td>
+                    <button type="button" class="btn btn-light mr-1">
+                        Edit
+                    </button>
+                    <button type="button" class="btn btn-light mr-1">
+                        Delete
+                    </button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
     <app-requests-form></app-requests-form>
 </div>

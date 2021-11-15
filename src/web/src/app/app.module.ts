@@ -7,12 +7,14 @@ import { AppComponent } from './app.component';
 import { RequestsComponent } from './requests/requests.component';
 import { RequestsFormComponent } from './requests/requests-form/requests-form.component';
 import { HttpClientModule } from '@angular/common/http';
+import { HomeComponent } from './home/home.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RequestsComponent,
-    RequestsFormComponent
+    RequestsFormComponent,
+    HomeComponent
   ],
   imports: [
     BrowserModule,

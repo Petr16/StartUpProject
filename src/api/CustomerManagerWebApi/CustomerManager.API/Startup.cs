@@ -52,9 +52,10 @@ namespace CustomerManager.API
             //    .WithMethods("GET", "POST", "PUT", "PATCH", "DELETE")
             //    .AllowAnyHeader());
 
-            app.UseCors(builder => builder.
-                WithOrigins("http://localhost:53653")
+            app.UseCors(builder => builder
+                .WithOrigins("http://localhost:58007")
                 //.WithMethods("GET", "POST", "PUT", "DELETE"));
+                //.AllowAnyOrigin()
                 .AllowAnyMethod()
                 .AllowAnyHeader());
 
