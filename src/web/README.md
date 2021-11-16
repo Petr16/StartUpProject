@@ -33,3 +33,42 @@ To get more help on the Angular CLI use `ng help` or go check out the [Angular C
 2) проверить политики get-executionpolicy -list
 3) установить для LocalMashine:      set-executionpolicy remotesigned
 4) установить политики для CurrentUser:    Set-ExecutionPolicy -ExecutionPolicy RemoteSigned -Scope CurrentUser
+
+
+DevExpress:
+1)Сначала необходимо установить devextreme и devextreme-angular npm пакеты(https://js.devexpress.com/Documentation/Guide/Angular_Components/Getting_Started/Add_DevExtreme_to_an_Angular_CLI_Application/)
+npm install devextreme@21.2 devextreme-angular@21.2 --save --save-exact
+2)Настроить таблицы стилей. Открыть файл angular.json и указать ссылку на предопределенную таблицу стилей темы (dx.light.css в приведенном ниже коде).
+{
+  "projects": {
+    "ProjectName": {
+      "architect": {
+        "build": {
+          "options": {
+            "styles": [
+              "node_modules/devextreme/dist/css/dx.light.css",
+              "src/styles.css"
+            ],
+            ...
+          },
+          ...
+        },
+        ...
+      }
+    },
+    ...
+  },
+  ...
+}
+
+3) 
+Затем перейдите в папку src, откройте файл index.html и добавьте класс dx-viewport в тег body. 
+Это гарантирует, что цвета темы и настройки типографики применяются ко всем элементам страницы (а не только к компонентам пользовательского интерфейса DevExtreme).
+<html lang="en">
+    <head>
+        <!-- ... -->
+    </head>
+    <body class="dx-viewport">
+        <app-root></app-root>
+    </body>
+</html>
