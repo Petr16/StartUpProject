@@ -57,7 +57,8 @@ namespace CustomerManager.API
                 //.WithMethods("GET", "POST", "PUT", "DELETE"));
                 //.AllowAnyOrigin()
                 .AllowAnyMethod()
-                .AllowAnyHeader());
+                .AllowAnyHeader()
+                .AllowCredentials());
 
             if (env.IsDevelopment())
             {
@@ -74,6 +75,9 @@ namespace CustomerManager.API
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllers();
+                //endpoints.MapControllerRoute(
+                //name: "Default",
+                //pattern: "{controller = Default}/{action = Get}/{id?}");
             });
         }
     }

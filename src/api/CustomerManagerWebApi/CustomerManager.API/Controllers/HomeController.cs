@@ -11,6 +11,7 @@ namespace CustomerManager.API.Controllers
     [ApiController]
     public class HomeController : ControllerBase
     {
+
         // GET: api/Home
         [HttpGet]
         public IEnumerable<string> Get()
@@ -19,10 +20,10 @@ namespace CustomerManager.API.Controllers
         }
 
         // GET: api/Home/5
-        [HttpGet("{id}", Name = "Get")]
+        [HttpGet("{id}", Name = "GetHome")]
         public string Get(int id)
         {
-            return "value";
+            return "value" + id;
         }
 
         // POST: api/Home

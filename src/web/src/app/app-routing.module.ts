@@ -6,7 +6,7 @@ import { RequestsComponent }   from './requests/requests.component';
 import { RequestsFormComponent }   from './requests/requests-form/requests-form.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent},
+  { path: '', /* redirectTo: 'home', */ component: HomeComponent},
   { path: 'requests', component: RequestsComponent},
   { path: 'requests/requests-form', component: RequestsFormComponent}
 ];
