@@ -20,9 +20,6 @@ export class RequestsService {
   list: Requests[];
 
   refreshList(): Observable<any[]> {
-    /* this.http.get(this.baseURL)
-      .toPromise()
-      .then(res =>this.list = res as Requests[]); */
       console.log(this.baseURL+'/requests');
     return this.http.get<any>(this.baseURL+'/requests')
   }

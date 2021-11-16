@@ -1,32 +1,28 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { DxDrawerComponent, DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } from 'devextreme-angular';
-import { AppService, List } from './shared/app.service';
+import { AppService, List } from '../shared/app.service';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  providers: [AppService],
-  preserveWhitespaces: true,
-  
+  selector: 'app-header',
+  templateUrl: './header.component.html',
+  styleUrls: ['./header.component.css']
 })
-export class AppComponent {
-  title = 'web';
+export class HeaderComponent implements OnInit {
   @ViewChild(DxDrawerComponent, { static: false }) drawer: DxDrawerComponent;
 
   navigation: List[];
 
-  showSubmenuModes: string[] = ['slide', 'expand'];
+/*   showSubmenuModes: string[] = ['slide', 'expand'];
 
   positionModes: string[] = ['left', 'right'];
 
-  showModes: string[] = ['push', 'shrink', 'overlap'];
+  showModes: string[] = ['push', 'shrink', 'overlap']; */
 
   text: string;
 
-  selectedOpenMode = 'shrink';
+  selectedOpenMode = 'overlap';
 
   selectedPosition = 'left';
 
@@ -49,5 +45,11 @@ export class AppComponent {
       onClick: () => this.isDrawerOpen = !this.isDrawerOpen,
     },
   }];
-}
 
+  ngOnInit(): void {
+  }
+
+  onItemClickMenu(e: any) {
+    console.log(e.component);
+  }
+}

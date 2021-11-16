@@ -9,22 +9,35 @@ import { RequestsFormComponent } from './requests/requests-form/requests-form.co
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } from 'devextreme-angular';
+import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
+import { HeaderComponent } from './header/header.component';
+import { FooterComponent } from './footer/footer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     RequestsComponent,
     RequestsFormComponent,
-    HomeComponent
+    HomeComponent,
+    HeaderComponent,
+    FooterComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
     HttpClientModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    DxDrawerModule,
+    DxListModule,
+    DxRadioGroupModule,
+    DxToolbarModule,
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  //declarations: [AppComponent],
+  bootstrap: [AppComponent,HeaderComponent,FooterComponent]
 })
 export class AppModule { }
+
+platformBrowserDynamic().bootstrapModule(AppModule);
