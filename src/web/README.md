@@ -72,3 +72,42 @@ npm install devextreme@21.2 devextreme-angular@21.2 --save --save-exact
         <app-root></app-root>
     </body>
 </html>
+
+
+Angular Material - для тулбаров и прочего:
+1)Установка    ng add @angular/material
+2)Настройка	
+	The package @angular/material@13.0.1 will be installed and executed.  --- жмем Y
+
+	Choose a prebuilt theme name, or "custom" for a custom theme: (Use arrow keys)      ---Deep Purple/Amber  [ Preview: https://material.angular.io?theme=deeppurple-amber ] 
+
+	Set up global Angular Material typography styles? (y/N)    --- N
+
+	Set up browser animations for Angular Material? (Y/n)    ---Y
+
+Установка и настройка(https://dev.to/qarunqb/angular-material-handbook-setup-and-basics-3ie0)
+Гайд (https://material.angular.io/components/categories)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
