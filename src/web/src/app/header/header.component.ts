@@ -1,8 +1,11 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, Inject, OnInit, ViewChild } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { DxDrawerComponent, DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } from 'devextreme-angular';
 import { AppService, List } from '../shared/app.service';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CUSTOMER_API_URL } from '../app-injection-customer';
+
 
 @Component({
   selector: 'app-header',
@@ -32,7 +35,10 @@ export class HeaderComponent implements OnInit {
 
   elementAttr: any;
 
-  constructor(service: AppService) {
+  constructor(service: AppService,
+              @Inject(CUSTOMER_API_URL) private customerUrl: string,
+              private router: Router,
+              private route: ActivatedRoute) {
     /* this.text = service.getContent(); */
     this.navigation = service.getNavigationList();
   }
@@ -47,9 +53,13 @@ export class HeaderComponent implements OnInit {
   }];
 
   ngOnInit(): void {
+    console.log('HeaderComponent is init!');
   }
 
   onItemClickMenu(e: any) {
-    console.log(e.component);
+    var iData = e.itemData;
+    console.log(iData);
+    console.log(this.customerUrl+iData.sourceUrl);
+    this.router.navigateByUrl(iData.sourceUrl);
   }
 }

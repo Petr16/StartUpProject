@@ -13,6 +13,10 @@ import { DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } fro
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
+import { CUSTOMER_API_URL } from './app-injection-customer';
+import { environment } from 'src/environments/environment';
+import { AboutComponent } from './about/about.component';
+import { NotFoundComponent } from './not-found/not-found.component';
 
 @NgModule({
   declarations: [
@@ -21,7 +25,9 @@ import { FooterComponent } from './footer/footer.component';
     RequestsFormComponent,
     HomeComponent,
     HeaderComponent,
-    FooterComponent
+    FooterComponent,
+    AboutComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -34,9 +40,11 @@ import { FooterComponent } from './footer/footer.component';
     DxRadioGroupModule,
     DxToolbarModule,
   ],
-  providers: [],
-  //declarations: [AppComponent],
-  bootstrap: [AppComponent,HeaderComponent,FooterComponent]
+  providers: [{
+    provide: CUSTOMER_API_URL,
+    useValue: environment.customerApi
+  }],
+  bootstrap: [AppComponent/* ,HeaderComponent,FooterComponent */] //Набор компонентов, которые загружаются при начальной загрузке этого модуля.
 })
 export class AppModule { }
 
