@@ -27,8 +27,8 @@ export class RequestsService {
     return this.http.get<any>(this.customerUrl+'/api/requests')
   }
 
-  getRequestsList():Observable<any[]>{
+  getRequestsList():Observable<Requests[]>{
     console.log(this.customerUrl+'/api/requests');
-    return this.http.get<any>(this.customerUrl+'/api/requests');
+    return this.http.get<Requests[]>(this.customerUrl+'/api/requests');
   }
 }

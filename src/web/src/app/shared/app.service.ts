@@ -14,6 +14,16 @@ export class List {
   sourceUrl: string;
 }
 
+const textForHeader = `
+<h2>
+    <b>Drawer Demo</b>
+</h2>
+<p>
+        В данном поле можно добавлять виджеты или инструменты.
+</p>
+`;
+
+
 const navigation: List[] = [
   { id: 1, text: 'Home', icon: 'product', sourceUrl: '/api/home' },
   { id: 2, text: 'Requests', icon: 'money', sourceUrl: '/api/requests'  },
@@ -38,9 +48,9 @@ export class AppService {
     return navigation;
   }
 
-/*   getContent(): string {
-    return text;
-  } */
+  getContent(): string {
+    return textForHeader;
+  }
 
   getHome():Observable<any[]>{
     console.log(this.customerUrl+'/api/home');

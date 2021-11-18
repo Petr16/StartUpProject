@@ -9,7 +9,7 @@ import { RequestsFormComponent } from './requests/requests-form/requests-form.co
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxDrawerModule, DxListModule, DxRadioGroupModule, DxToolbarModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -17,6 +17,7 @@ import { CUSTOMER_API_URL } from './app-injection-customer';
 import { environment } from 'src/environments/environment';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+
 
 @NgModule({
   declarations: [
@@ -39,6 +40,8 @@ import { NotFoundComponent } from './not-found/not-found.component';
     DxListModule,
     DxRadioGroupModule,
     DxToolbarModule,
+    DxDataGridModule,
+    DxButtonModule
   ],
   providers: [{
     provide: CUSTOMER_API_URL,

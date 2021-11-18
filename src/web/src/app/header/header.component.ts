@@ -23,9 +23,9 @@ export class HeaderComponent implements OnInit {
 
   showModes: string[] = ['push', 'shrink', 'overlap']; */
 
-  text: string;
+  textForHeader: string;
 
-  selectedOpenMode = 'overlap';
+  selectedOpenMode = 'shrink';
 
   selectedPosition = 'left';
 
@@ -39,7 +39,7 @@ export class HeaderComponent implements OnInit {
               @Inject(CUSTOMER_API_URL) private customerUrl: string,
               private router: Router,
               private route: ActivatedRoute) {
-    /* this.text = service.getContent(); */
+    this.textForHeader = service.getContent();
     this.navigation = service.getNavigationList();
   }
 
