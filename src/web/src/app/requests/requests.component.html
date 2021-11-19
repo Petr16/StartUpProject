@@ -25,7 +25,15 @@
     <dxi-column dataField="BirthDate" dataType="date"> </dxi-column> -->
 
     <dxo-toolbar>
-      <dxi-item name="addRowButton" showText="always"> </dxi-item>
+      <dxi-item name="addRowButton" showText="always"> 
+        <dx-button
+          (onClick)="addRequest()"
+          icon="add"
+          text="Добавить заявку"
+        >
+        </dx-button>
+      </dxi-item>
+      
       <dxi-item location="after">
         <dx-button
           (onClick)="deleteRecords()"
@@ -67,4 +75,122 @@
     </table>
      <app-requests-form></app-requests-form> 
 </div>
+
+<dx-popup
+    [width]="660"
+    [height]="320"
+    [showTitle]="true"
+    [title]="requestPopup"
+    [dragEnabled]="true"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupVisible"
+  >
+    <div *dxTemplate="let data of 'content'">
+      <div class="popup-property-details">
+        <!-- editors -->
+        <div class="editors">
+          <div class="editors-container">
+            <div class="left">
+              <dx-text-box
+                value=""
+                width="100%"
+                label="Имя заказчика"
+                placeholder="Ваше имя"
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+            <div class="right">
+              <dx-text-box
+                value=""
+                width="100%"
+                label="Название заявки"
+                placeholder="Заявка"
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+          </div>
+
+          <div class="editors-container">
+            <div class="left">
+              <dx-text-box
+                width="100%"
+                label="Номер телефона"
+                mask="+7 (000) 000-0000"
+                [maskRules]="phoneRules"
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+            <div class="right">
+              <dx-date-box
+                width="100%"
+                label="Дата исполнения"
+                placeholder=""
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-date-box>
+            </div>
+          </div>
+          
+          <div class="center">
+            <div class="txtArea">
+              <dx-text-area
+              value=""
+              width="100%"
+              placeholder="Напишите комментарий к заявке"
+              label="Комментарий"
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+            ></dx-text-area>
+            </div>
+          </div>
+          
+          <div class="center">
+            <dx-button
+              text="Добавить"
+              type="default"
+              (onClick)="validateClick($event)"
+              class="validate"
+            ></dx-button>
+          </div>
+          
+        </div>
+        <!-- editors -->
+      </div>
+    </div>
+    <!-- <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="before"
+      [options]="emailButtonOptions"
+    >
+    </dxi-toolbar-item>
+    <dxi-toolbar-item
+      widget="dxButton"
+      toolbar="bottom"
+      location="after"
+      [options]="closeButtonOptions"
+    >
+    </dxi-toolbar-item> -->
+    <!-- <dxo-position at="bottom" my="center" [of]="positionOf"> </dxo-position> -->
+  </dx-popup>
+
  <router-outlet></router-outlet>

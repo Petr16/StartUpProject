@@ -3,8 +3,12 @@ import { RequestsService } from '../shared/requests.service';
 import { 
   DxDataGridModule, 
   DxButtonModule, 
-  DxDataGridComponent
+  DxDataGridComponent,
+  DxPopupModule,
+  DxTemplateModule,
+  DxPopoverModule,
 } from 'devextreme-angular';
+import notify from 'devextreme/ui/notify';
 import ArrayStore from 'devextreme/data/array_store';
 import CustomStore from 'devextreme/data/custom_store';
 import { Requests } from '../shared/requests.model';
@@ -20,29 +24,30 @@ import { Requests } from '../shared/requests.model';
 export class RequestsComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
 
-  //dataSource: ArrayStore;
+
   customDataSource: CustomStore;
   dataSource2: Requests[] = [];
-  //states: State[];
-
+  
   selectedItemKeys: any[] = [];
+  
+  popupVisible = false;
+  ADD_TO_FAVORITES = 'Add to Favorites';
+  REMOVE_FROM_FAVORITES = 'Remove from Favorites';
+  requestPopup = 'Форма добавления заявки';
+  emailButtonOptions: any;
+  closeButtonOptions: any;
+  positionOf: string;
+  txbxRequestName: string;
+  txbxCustomerName: string;
+  
+  phoneRules: any = {
+    X: /[02-9]/,
+  };
+  labelMode = 'static';
+  stylingMode = 'filled';
+  birthDate = new Date(1981, 5, 3);
 
   constructor(public service: RequestsService) { 
-    /* this.dataSource = new ArrayStore({
-      key: 'ID',
-      data: service.getRequestsList().subscribe(data=>{
-        this.RequestsList=data;
-      }),
-    }); */
-    //this.states = service.getStates();
-    /* this.dataSource = new CustomStore({
-      key: 'ID',
-      loadMode: 'raw',
-      load: () => service.getRequestsList().toPromise().then((data: any) => (data.data))
-      .catch((e) => {
-        throw e && e.error && e.error.Message;
-      }),
-      })  */
 
       function isNotEmpty(value: any) {
         return value !== undefined && value !== null && value !== '';
@@ -83,6 +88,29 @@ export class RequestsComponent implements OnInit {
       });
       console.log(this.dataGrid);
       console.log(this.customDataSource.key());
+
+
+      //Для popup типа снекбара
+      this.emailButtonOptions = {
+        icon: 'email',
+        text: 'Send',
+        onClick(e: any) {
+          const message = 'Email is sent to '; //${that.currentEmployee.FirstName} ${that.currentEmployee.LastName}`;
+          notify({
+            message,
+            position: {
+              my: 'center top',
+              at: 'center top',
+            },
+          }, 'success', 3000);
+        },
+      };
+      this.closeButtonOptions = {
+        text: 'Close',
+        onClick(e: any) {
+          this.popupVisible = false;
+        },
+      };
   } 
 
   selectionChanged(data: any) {
@@ -118,9 +146,33 @@ export class RequestsComponent implements OnInit {
     })
   }
 
-  /* private async fetchRequests() {
-    this.dataSource = await this.getRequestsAxios();
-  } */
+  addRequest(){
+    this.popupVisible = true;
+  }
+
+  validateClick(e: any) {
+    const result = e.validationGroup.validate();
+    if (result.isValid) {
+      notify('The task was saved successfully.', 'success');
+    } else {
+      notify('The task was not saved. Please check if all fields are valid.', 'error');
+    }
+  }
+
+  changeFavoriteState(e: any) {
+    const favoriteState = 'success';//!this.currentHouse.Favorite;
+    const message = `This item has been ${
+      favoriteState ? 'added to' : 'removed from'
+    } the Favorites list!`;
+    this.requestPopup = favoriteState;
+
+    notify({
+      message,
+      width: 450,
+    },
+    favoriteState ? 'success' : 'error',
+    2000);
+  }
 
   async getRequestsAxios() {
     /* try {

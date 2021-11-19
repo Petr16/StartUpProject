@@ -1,0 +1,50 @@
+::ng-deep .title {
+    padding: 20px 0 20px 0;
+    font-size: 18px;
+    font-weight: 500;
+  }
+  
+  ::ng-deep .editors {
+    margin-right: 10px;
+  }
+  
+  ::ng-deep .editors .left {
+    padding: 0 10px 0 0;
+  }
+  
+  ::ng-deep .editors .right {
+    padding: 0 0 0 10px;
+  }
+  
+  ::ng-deep .editors .left,
+  ::ng-deep .editors .right {
+    flex-grow: 1;
+  }
+  
+  ::ng-deep .editors .left > *,
+  ::ng-deep .editors .right > *,
+  ::ng-deep .editors .center > * {
+    margin-bottom: 20px;
+  }
+  
+  ::ng-deep .editors .center {
+    padding: 0 10px 0 0;
+  }
+  
+  ::ng-deep .center .txtArea {
+    float: left;
+    width: 100%;
+    height: 100%;
+  }
+
+  ::ng-deep .validate {
+    float: left;
+  }
+
+
+  ::ng-deep .editors-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-right: 10px;
+  }
