@@ -61,9 +61,9 @@ namespace CustomerManager.DAL.Repositories
 
         #region Get
 
-        public IQueryable<TEntity> GetAll()
+        public IQueryable<TEntity> GetAll(bool asNoTracking = true)
         {
-            return DbSet;
+            return asNoTracking ? DbSet.AsNoTracking() : DbSet;
         }
 
         public IAsyncEnumerable<TEntity> GetAllAsyncEnumerable(bool asNoTracking = true)

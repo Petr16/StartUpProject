@@ -8,6 +8,9 @@ using CustomerManager.BLL.Services;
 using CustomerManager.DAL;
 using CustomerManager.BLL.ViewModels;
 using System.Threading;
+using DevExtreme.AspNet.Data.ResponseModel;
+using DevExtreme.AspNet.Mvc;
+using DevExtreme.AspNet.Data;
 
 namespace CustomerManager.API.Controllers
 {
@@ -25,11 +28,17 @@ namespace CustomerManager.API.Controllers
             _requestService = requestService;
         }
 
-        // GET: api/Requests
+        //// GET: api/Requests
+        //[HttpGet]
+        //public async Task<ActionResult<IEnumerable<RequestVM>>> Get(CancellationToken canselationToken)
+        //{
+        //    return await _requestService.GetAll(canselationToken);
+        //}
+
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<RequestVM>>> Get(CancellationToken canselationToken)
+        public async Task<ActionResult<LoadResult>> Get(DataSourceLoadOptions loadOptions, CancellationToken cancellationToken)
         {
-            return await _requestService.GetAll(canselationToken);
+            return await DataSourceLoader.LoadAsync(_requestService.GetAll(), loadOptions, cancellationToken);
         }
 
         // GET: api/Requests/5

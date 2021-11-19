@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="DevExtreme.AspNet.Data" Version="2.6.1" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.5" />
   </ItemGroup>
 
@@ -12,5 +13,10 @@
     <ProjectReference Include="..\CustomerManager.BLL\CustomerManager.BLL.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Reference Include="DevExtreme.AspNet.Core">
+      <HintPath>..\..\lib\DevExtreme.AspNet.Core.dll</HintPath>
+    </Reference>
+  </ItemGroup>
 
 </Project>

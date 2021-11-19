@@ -2,8 +2,10 @@
 using CustomerManager.BLL.ViewModels;
 using CustomerManager.DAL;
 using CustomerManager.DAL.Entities;
+using CustomerManager.DAL.Repositories;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -23,9 +25,11 @@ namespace CustomerManager.BLL.Services
 
         public IUnitOfWork UnitOfWork { get; }
 
+        public IRequestRepository RequestRepo => UnitOfWork.RequestRepo;
+
         public async Task<List<RequestVM>> GetAll(CancellationToken cancellationToken = default)
         {
-            List<Request> requests = await UnitOfWork.RequestRepo.GetAllToListAsync(cancellationToken);
+            List<Request> requests = await RequestRepo.GetAllToListAsync(cancellationToken);
 
             // Пример вызова хранимой функции
             //List<Request> requests1 = await UnitOfWork.RequestRepo.GetRequestsStoredFuncExample(cancellationToken);
@@ -33,16 +37,27 @@ namespace CustomerManager.BLL.Services
             return _mapper.Map<List<RequestVM>>(requests);
         }
 
+        /// <summary>
+        /// Новый метод для работы с devextreme
+        /// </summary>
+        /// <returns></returns>
+        public IQueryable<RequestVM> GetAll()
+        {
+            IQueryable<Request> requests = RequestRepo.GetAll();
+            return _mapper.ProjectTo<RequestVM>(requests);
+        }
+
+
         public async Task<RequestVM> Get(int id)
         {
-            Request request = await UnitOfWork.RequestRepo.GetByIdAsync(id);
+            Request request = await RequestRepo.GetByIdAsync(id);
             return _mapper.Map<RequestVM>(request);
         }
 
         public async Task<RequestVM> Create(RequestVM requestVM)
         {
             Request newRequest = _mapper.Map<Request>(requestVM);
-            await UnitOfWork.RequestRepo.AddAsync(newRequest);
+            await RequestRepo.AddAsync(newRequest);
             await UnitOfWork.SaveAsync();
 
             return _mapper.Map<RequestVM>(newRequest);
@@ -50,7 +65,7 @@ namespace CustomerManager.BLL.Services
 
         public async Task Update(RequestVM requestVM)
         {
-            Request existingRequest = await UnitOfWork.RequestRepo.GetByIdAsync(requestVM.Id);
+            Request existingRequest = await RequestRepo.GetByIdAsync(requestVM.Id);
             if (existingRequest == null)
                 throw new ArgumentException($"Изменения не сохранены, т.к. заявка с ID={requestVM.Id} не найдена.");
 
@@ -60,7 +75,7 @@ namespace CustomerManager.BLL.Services
 
         public async Task Delete(int id)
         {
-            bool foundAndRemoved = await UnitOfWork.RequestRepo.RemoveByIdAsync(id);
+            bool foundAndRemoved = await RequestRepo.RemoveByIdAsync(id);
             if (!foundAndRemoved)
                 throw new ArgumentException($"Удаление не выполнено, т.к. заявка с ID={id} не найдена");
 

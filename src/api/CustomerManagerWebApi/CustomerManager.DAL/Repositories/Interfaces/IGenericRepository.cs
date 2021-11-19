@@ -27,7 +27,7 @@ namespace CustomerManager.DAL.Repositories
 
         #region Get
 
-        IQueryable<TEntity> GetAll();
+        IQueryable<TEntity> GetAll(bool asNoTracking = true);
 
         IAsyncEnumerable<TEntity> GetAllAsyncEnumerable(bool asNoTracking = true);
 
