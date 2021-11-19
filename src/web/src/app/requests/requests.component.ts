@@ -50,7 +50,7 @@ export class RequestsComponent implements OnInit {
       
       this.customDataSource = new CustomStore({
         key: 'id',
-        load(loadOptions: any) {
+        async load(loadOptions: any) {
           let params = '?';
           [
             'skip',
@@ -67,17 +67,21 @@ export class RequestsComponent implements OnInit {
           });
           params = params.slice(0, -1);
           console.log(`!!!!!!!!!!!!${params}`);
-          return fetch('http://localhost:5000/api/requests')
-            .then(response => response.json())
-            .then(data => ({
+          try {
+            const response = await fetch('http://localhost:5000/api/requests');
+            const data = await response.json();
+            return ({
               data: data.data,
               totalCount: data.totalCount,
               summary: data.summary,
               groupCount: data.groupCount,
-            }))
-            .catch(e => { throw e; });
+            });
+          } catch (e) {
+            throw e;
+          }
         },
       });
+      console.log(this.dataGrid);
       console.log(this.customDataSource.key());
   } 
 
@@ -100,7 +104,7 @@ export class RequestsComponent implements OnInit {
       template: 'deleteButton',
     });
   }
-  //ArrayStore: any[];
+
   RequestsList: any[];
 
   ngOnInit(): void {
