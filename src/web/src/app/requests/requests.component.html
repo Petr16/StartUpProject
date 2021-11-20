@@ -15,8 +15,12 @@
     <dxo-selection mode="multiple"></dxo-selection>
 
     <dxi-column dataField="id" caption="Номер заявки" [width]="100"></dxi-column>
-    <dxi-column dataField="name" caption="Имя заявки "></dxi-column>
-    <!-- <dxi-column dataField="LastName"></dxi-column>
+    <dxi-column dataField="customerName"></dxi-column>
+    <dxi-column dataField="name" caption="Название заявки"></dxi-column>
+    <dxi-column dataField="phone" caption="Номер телефона заказчика"></dxi-column>
+    <dxi-column dataField="comment" caption="Номер телефона заказчика"></dxi-column>
+    
+    <!-- 
     <dxi-column dataField="Position" [width]="170"></dxi-column>
     <dxi-column dataField="StateID" caption="State" [width]="125">
       <dxo-lookup [dataSource]="states" displayExpr="Name" valueExpr="ID">
@@ -95,7 +99,7 @@
                 value=""
                 width="100%"
                 label="Имя заказчика"
-                placeholder="Ваше имя"
+                placeholder="Иванов И.И."
                 [stylingMode]="stylingMode"
                 [labelMode]="labelMode"
               >
@@ -112,6 +116,7 @@
                 placeholder="Заявка"
                 [stylingMode]="stylingMode"
                 [labelMode]="labelMode"
+                [(value)]="this.newRequest.name"
               >
                 <dx-validator>
                   <dxi-validation-rule type="required"> </dxi-validation-rule>
@@ -176,21 +181,6 @@
         <!-- editors -->
       </div>
     </div>
-    <!-- <dxi-toolbar-item
-      widget="dxButton"
-      toolbar="bottom"
-      location="before"
-      [options]="emailButtonOptions"
-    >
-    </dxi-toolbar-item>
-    <dxi-toolbar-item
-      widget="dxButton"
-      toolbar="bottom"
-      location="after"
-      [options]="closeButtonOptions"
-    >
-    </dxi-toolbar-item> -->
-    <!-- <dxo-position at="bottom" my="center" [of]="positionOf"> </dxo-position> -->
   </dx-popup>
 
  <router-outlet></router-outlet>

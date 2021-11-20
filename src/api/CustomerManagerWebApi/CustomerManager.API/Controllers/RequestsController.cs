@@ -53,7 +53,7 @@ namespace CustomerManager.API.Controllers
         }
 
         // POST: api/Requests
-        [HttpPost]
+        [HttpPost("New")]
         public async Task<ActionResult<RequestVM>> Post(RequestVM request)
         {
             RequestVM createdRequest = await _requestService.Create(request);

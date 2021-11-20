@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Requests } from './requests.model'
-import { Observable } from 'rxjs';
+import { catchError, Observable } from 'rxjs';
 import { CUSTOMER_API_URL } from '../app-injection-customer';
 import { Router } from '@angular/router';
 
@@ -30,5 +30,12 @@ export class RequestsService {
   getRequestsList():Observable<Requests[]>{
     console.log(this.customerUrl+'/api/requests');
     return this.http.get<Requests[]>(this.customerUrl+'/api/requests');
+  }
+
+  createRequest(newRequest: Requests): Observable<Requests>{
+    //const body = {id: newRequest.id, name: newRequest.name};
+    console.log(this.customerUrl+'/api/requests  POST '+ newRequest);
+    console.log(newRequest);
+    return this.http.post<Requests>(this.customerUrl+'/api/requests/new', newRequest);
   }
 }

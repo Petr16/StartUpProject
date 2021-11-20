@@ -24,7 +24,7 @@ import { Requests } from '../shared/requests.model';
 export class RequestsComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
 
-
+  newRequest: Requests = {id: 0,name:''};
   customDataSource: CustomStore;
   dataSource2: Requests[] = [];
   
@@ -48,13 +48,14 @@ export class RequestsComponent implements OnInit {
   birthDate = new Date(1981, 5, 3);
 
   constructor(public service: RequestsService) { 
-
+    /* (onInitialized)="saveGridInstance($event)" */
       function isNotEmpty(value: any) {
         return value !== undefined && value !== null && value !== '';
       }
       
       this.customDataSource = new CustomStore({
         key: 'id',
+
         async load(loadOptions: any) {
           let params = '?';
           [
@@ -85,6 +86,16 @@ export class RequestsComponent implements OnInit {
             throw e;
           }
         },
+
+        /* insert(value: any) {
+            console.log(value);
+        },
+        update(key, values) {
+            // ...
+        },
+        remove(key){
+            // ...
+        } */
       });
       console.log(this.dataGrid);
       console.log(this.customDataSource.key());
@@ -146,17 +157,31 @@ export class RequestsComponent implements OnInit {
     })
   }
 
+  //Запуск "Форма добавления заявки"
   addRequest(){
     this.popupVisible = true;
   }
 
+  //Нажатая кнопка "Добавить" в "Форма добавления заявки"
   validateClick(e: any) {
     const result = e.validationGroup.validate();
-    if (result.isValid) {
-      notify('The task was saved successfully.', 'success');
+    /* if (result.isValid) {
+      notify('Все поля заполнены, ожидайте конца загрузки', 'success');
+      
     } else {
-      notify('The task was not saved. Please check if all fields are valid.', 'error');
-    }
+      notify('Заполните все поля', 'error');
+    } */
+
+    console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
+    this.ctreateRequest(this.newRequest);
+  }
+
+  ctreateRequest(newRequest: Requests){
+     newRequest.id = 0;
+    console.log(newRequest);
+    this.service.createRequest(newRequest).subscribe(
+      (data: Requests) => {this.newRequest = data;}
+      );
   }
 
   changeFavoriteState(e: any) {
@@ -174,24 +199,5 @@ export class RequestsComponent implements OnInit {
     2000);
   }
 
-  async getRequestsAxios() {
-    /* try {
-      const response = await axios.get(`http://${apiHost}${endPoints.AdminRoles}`);
-      return response.data.data;
-    } catch (e) {
-      console.error(e);
-      throw new Error('При получении ролей возникла ошибка');
-    } */
-
-    /* try {
-      const response = await fetch('http://localhost:5000/api/requests');
-      const data = await response.json();
-      const { results: [requests] } = data;
-      return requests
-    } catch (e) {
-      console.error(e);
-      throw new Error('При получении заказов возникла ошибка');
-    } */
-  }
 
 }
