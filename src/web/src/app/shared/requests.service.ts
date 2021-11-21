@@ -16,6 +16,31 @@ export class RequestsService {
     private router: Router
     ) { }
 
+    //Для переброски в другие компоненты, использую, как хранилище
+    private serviceDataRequests: Requests;
+
+    setData(data: Requests){
+      this.serviceDataRequests = data;
+    }
+  
+    getData(){
+      let temp = this.serviceDataRequests;
+      this.clearData();
+      return temp;
+    }
+  
+    clearData(){
+      this.serviceDataRequests = {
+        id: 0,
+        name: ''
+      };
+    }
+
+
+
+
+
+
   readonly baseURL = 'http://localhost:5000/api'
   readonly requestsURL = 'http://localhost:5000/api/requests'
   //readonly baseURL = 'http://localhost:58007/api/requests'

@@ -9,7 +9,7 @@ import { RequestsFormComponent } from './requests/requests-form/requests-form.co
 import { HttpClientModule } from '@angular/common/http';
 import { HomeComponent } from './home/home.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { DxButtonModule, DxDataGridModule, DxDateBoxModule, DxDrawerModule, DxListModule, DxNumberBoxModule, DxPopoverModule, DxPopupModule, DxRadioGroupModule, DxTemplateModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule, DxValidatorModule } from 'devextreme-angular';
+import { DxButtonModule, DxDataGridModule, DxDateBoxModule, DxDrawerModule, DxFormModule, DxGalleryModule, DxListModule, DxNumberBoxModule, DxPopoverModule, DxPopupModule, DxRadioGroupModule, DxTemplateModule, DxTextAreaModule, DxTextBoxModule, DxToolbarModule, DxValidatorModule } from 'devextreme-angular';
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
@@ -50,7 +50,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     DxNumberBoxModule,
     DxValidatorModule,
     DxDateBoxModule,
-    DxTextAreaModule
+    DxTextAreaModule,
+    DxFormModule,
+    DxGalleryModule
   ],
   providers: [{
     provide: CUSTOMER_API_URL,

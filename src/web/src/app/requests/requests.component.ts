@@ -9,13 +9,10 @@ import {
   DxPopoverModule,
 } from 'devextreme-angular';
 import notify from 'devextreme/ui/notify';
-import ArrayStore from 'devextreme/data/array_store';
 import CustomStore from 'devextreme/data/custom_store';
 import { Requests } from '../shared/requests.model';
-import { timeout } from 'rxjs';
-//import {CustomHttpClient} from '../infrastructure/custom-http-client'
-//import { createCustomStore } from '../utils/dxUtils.js';
-//import {endPoints} from 'src/app/const/endPoints.js'
+import { RequestsFormComponent } from './requests-form/requests-form.component';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-requests',
@@ -24,6 +21,7 @@ import { timeout } from 'rxjs';
 })
 export class RequestsComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
+  //@ViewChild(RequestsFormComponent, { static: false }) requestsFormComponent: RequestsFormComponent; //в родительском Angular component позволяет получить все свойства указанного дочернего компонента.
 
   newRequest: Requests = {id: 0,name:''};
   customDataSource: CustomStore;
@@ -57,8 +55,10 @@ export class RequestsComponent implements OnInit {
   stylingMode = 'filled';
   birthDate = new Date(1981, 5, 3);
 
-  constructor(public service: RequestsService) { 
-    /* (onInitialized)="saveGridInstance($event)" */
+  constructor(
+    public service: RequestsService, 
+    private router: Router
+  ) { 
       function isNotEmpty(value: any) {
         return value !== undefined && value !== null && value !== '';
       }
@@ -172,7 +172,7 @@ export class RequestsComponent implements OnInit {
       setTimeout(() => {console.log('Создание заявки')},5000);
       this.dataGrid.instance.refresh();
       this.popupVisible = false;
-      
+
     } else {
       notify('Заполните все поля', 'error');
     }
@@ -188,15 +188,6 @@ export class RequestsComponent implements OnInit {
 
 
   deleteRequests() {
-    /* if(this.selectedItemKeys.length == 1){
-      this.selectedItemKeys.forEach((key) => {
-        this.deleteKeyRequest =  key;
-        });
-      console.log('key = '+ this.deleteKeyRequest);
-      this.service.deleteteRequest(this.deleteKeyRequest).subscribe(
-        (data: number) => {this.deleteKeyRequest = data}
-      );
-    } else{ */
       this.selectedItemKeys.forEach((key) => {
         this.deleteKeyRequest =  key;
         console.log('key = '+ this.deleteKeyRequest);
@@ -204,13 +195,12 @@ export class RequestsComponent implements OnInit {
           (data: number) => {this.deleteKeyRequest = data}
         );
       });
-    //} 
     setTimeout(() => {console.log('Удаление заявки')},3000);
     this.dataGrid.instance.refresh();
   }
 
   updateRequest(){
-    console.log(this.selectedItemKeys);
+    console.log(this.selectedItemKeys[0]);
     console.log(this.dataGrid.instance.getSelectedRowsData()[0].name);
     this.editRequest = {
       id: this.selectedItemKeys[0],
@@ -245,6 +235,17 @@ export class RequestsComponent implements OnInit {
       );
   }
 
+
+  toRequestsForm(e: any){
+
+    const request  = {
+      id: this.selectedItemKeys[0],
+      name: this.dataGrid.instance.getSelectedRowsData()[0].name
+    }
+    console.log(request);
+    this.service.setData(request);
+    this.router.navigateByUrl('/api/requests/requests-form');
+  }
 /*   changeFavoriteState(e: any) {
     const favoriteState = 'success';//!this.currentHouse.Favorite;
     const message = `This item has been ${
