@@ -32,11 +32,18 @@ export class RequestsComponent implements OnInit {
   selectedItemKeys: any[] = [];
   deleteKeyRequest: number = 0;
   deleteKeysRequest: number[] = [];
+  selectedRequest: Requests;
+  editRequest: Requests = {id: 0, name: ''}
   
   popupVisible = false;//закрыт или открыт наш dialog для создания заявки
+  requestPopup = 'Форма добавления заявки';
+  popupEditVisible = false;//закрыт или открыт наш dialog для изменения заявки
+  requestEditPopup = 'Форма изменения заявки №';
+  requestEditPopupCustom = '';
+
   ADD_TO_FAVORITES = 'Add to Favorites';
   REMOVE_FROM_FAVORITES = 'Remove from Favorites';
-  requestPopup = 'Форма добавления заявки';
+  
   emailButtonOptions: any;
   closeButtonOptions: any;
   positionOf: string;
@@ -160,17 +167,15 @@ export class RequestsComponent implements OnInit {
     const result = e.validationGroup.validate();
     if (result.isValid) {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
+      console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
+      this.ctreateRequest(this.newRequest);
+      setTimeout(() => {console.log('Создание заявки')},5000);
+      this.dataGrid.instance.refresh();
+      this.popupVisible = false;
       
     } else {
       notify('Заполните все поля', 'error');
     }
-
-    console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
-    this.ctreateRequest(this.newRequest);
-    setTimeout(() => {console.log('Создание заявки')},3000);
-    this.dataGrid.instance.refresh();
-    this.popupVisible = false;
-    
   }
 
   ctreateRequest(newRequest: Requests){
@@ -183,7 +188,7 @@ export class RequestsComponent implements OnInit {
 
 
   deleteRequests() {
-    if(this.selectedItemKeys.length == 1){
+    /* if(this.selectedItemKeys.length == 1){
       this.selectedItemKeys.forEach((key) => {
         this.deleteKeyRequest =  key;
         });
@@ -191,7 +196,7 @@ export class RequestsComponent implements OnInit {
       this.service.deleteteRequest(this.deleteKeyRequest).subscribe(
         (data: number) => {this.deleteKeyRequest = data}
       );
-    } else{
+    } else{ */
       this.selectedItemKeys.forEach((key) => {
         this.deleteKeyRequest =  key;
         console.log('key = '+ this.deleteKeyRequest);
@@ -199,16 +204,46 @@ export class RequestsComponent implements OnInit {
           (data: number) => {this.deleteKeyRequest = data}
         );
       });
-    } 
+    //} 
     setTimeout(() => {console.log('Удаление заявки')},3000);
     this.dataGrid.instance.refresh();
   }
 
   updateRequest(){
     console.log(this.selectedItemKeys);
+    console.log(this.dataGrid.instance.getSelectedRowsData()[0].name);
+    this.editRequest = {
+      id: this.selectedItemKeys[0],
+      name: this.dataGrid.instance.getSelectedRowsData()[0].name
+    }
+    console.log(this.editRequest);
+
+    this.requestEditPopupCustom = this.requestEditPopup + this.editRequest.id;//для отображения номера заявки
+    this.popupEditVisible = true;
   }
 
+  //Нажатая кнопка "Изменить" в "Форма изменения заявки"
+  validateClickUpdate(e: any) {
+    const result = e.validationGroup.validate();
+    if (result.isValid) {
+      notify('Все поля заполнены, ожидайте конца загрузки', 'success');
+      console.log('this.newRequest.name = '+this.editRequest.name+ this.editRequest.id);
+      this.toEditRequest(this.editRequest);
+      setTimeout(() => {console.log('Изменение заявки')},5000);
+      this.dataGrid.instance.refresh();
+      this.popupEditVisible = false;
 
+    } else {
+      notify('Заполните все поля', 'error');
+    }
+  }
+
+  toEditRequest(newEditRequest: Requests){
+    console.log(newEditRequest);
+    this.service.editRequest(newEditRequest).subscribe(
+      (data: Requests) => {newEditRequest = data;}
+      );
+  }
 
 /*   changeFavoriteState(e: any) {
     const favoriteState = 'success';//!this.currentHouse.Favorite;

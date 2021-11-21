@@ -1,9 +1,12 @@
 <dx-data-grid
+    #gridRequests
     id="gridContainer"
     [dataSource]="customDataSource"
     [showBorders]="true"
+    [columnAutoWidth]="true"
     (onSelectionChanged)="selectionChanged($event)"
     (onInitialized)="saveGridInstance($event)"
+    [selectedRowKeys]="[]"
   >
     <dxo-paging [enabled]="false"></dxo-paging>
     <!-- <dxo-editing
@@ -166,6 +169,115 @@
       </div>
     </div>
   </dx-popup>
+
+<!-- Popup для изменения заявки -->
+<dx-popup
+    [width]="660"
+    [height]="320"
+    [showTitle]="true"
+    [title]="requestEditPopupCustom"
+    [dragEnabled]="true"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupEditVisible"
+  >
+  <div *dxTemplate="let data of 'content'">
+    <div class="popup-property-details">
+      
+      <div class="editors">
+        <div class="editors-container">
+          <div class="left">
+            <dx-text-box
+              value=""
+              width="100%"
+              label="Имя заказчика"
+              placeholder="Иванов И.И."
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+            >
+              <dx-validator>
+                <dxi-validation-rule type="required"> </dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
+          </div>
+          <div class="right">
+            <dx-text-box
+              [value]="this.editRequest.name"
+              width="100%"
+              label="Название заявки"
+              placeholder="Заявка"
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+              [(value)]="this.editRequest.name"
+            >
+              <dx-validator>
+                <dxi-validation-rule type="required"> </dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
+          </div>
+        </div>
+
+        <div class="editors-container">
+          <div class="left">
+            <dx-text-box
+              width="100%"
+              label="Номер телефона"
+              mask="+7 (000) 000-0000"
+              [maskRules]="phoneRules"
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+            >
+              <dx-validator>
+                <dxi-validation-rule type="required"> </dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
+          </div>
+          <div class="right">
+            <dx-date-box
+              width="100%"
+              label="Дата исполнения"
+              placeholder=""
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+            >
+              <dx-validator>
+                <dxi-validation-rule type="required"> </dxi-validation-rule>
+              </dx-validator>
+            </dx-date-box>
+          </div>
+        </div>
+        
+        <div class="center">
+          <div class="txtArea">
+            <dx-text-area
+            value=""
+            width="100%"
+            placeholder="Напишите комментарий к заявке"
+            label="Комментарий"
+            [stylingMode]="stylingMode"
+            [labelMode]="labelMode"
+          ></dx-text-area>
+          </div>
+        </div>
+        
+        <div class="center">
+          <dx-button
+            text="Изменить"
+            type="default"
+            (onClick)="validateClickUpdate($event)"
+            class="validate"
+          ></dx-button>
+        </div>
+        
+      </div>
+      
+    </div>
+  </div>
+  </dx-popup>
+
+
+
+
+
 
  <router-outlet></router-outlet>
 

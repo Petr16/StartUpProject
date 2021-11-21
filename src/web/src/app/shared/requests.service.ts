@@ -33,7 +33,6 @@ export class RequestsService {
   }
 
   createRequest(newRequest: Requests): Observable<Requests>{
-    //const body = {id: newRequest.id, name: newRequest.name};
     console.log(this.customerUrl+'/api/requests  POST '+ newRequest);
     console.log(newRequest);
     return this.http.post<Requests>(this.customerUrl+'/api/requests/new', newRequest);
@@ -43,5 +42,11 @@ export class RequestsService {
     //const body = {id: newRequest.id, name: newRequest.name};
     console.log(this.customerUrl+`/api/requests/${deleteKeyRequest}  Delete`+ deleteKeyRequest);
     return this.http.delete<number>(`${this.customerUrl}/api/requests/${deleteKeyRequest}`);
+  }
+
+  editRequest(editRequest: Requests): Observable<Requests>{
+    //const body = {id: newRequest.id, name: newRequest.name};
+    console.log(this.customerUrl+`/api/requests/${editRequest}  Delete`+ editRequest);
+    return this.http.put<Requests>(`${this.customerUrl}/api/requests/${editRequest.id}`, editRequest);
   }
 }
