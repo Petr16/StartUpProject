@@ -12,6 +12,7 @@ import notify from 'devextreme/ui/notify';
 import ArrayStore from 'devextreme/data/array_store';
 import CustomStore from 'devextreme/data/custom_store';
 import { Requests } from '../shared/requests.model';
+import { timeout } from 'rxjs';
 //import {CustomHttpClient} from '../infrastructure/custom-http-client'
 //import { createCustomStore } from '../utils/dxUtils.js';
 //import {endPoints} from 'src/app/const/endPoints.js'
@@ -29,8 +30,10 @@ export class RequestsComponent implements OnInit {
   dataSource2: Requests[] = [];
   
   selectedItemKeys: any[] = [];
+  deleteKeyRequest: number = 0;
+  deleteKeysRequest: number[] = [];
   
-  popupVisible = false;
+  popupVisible = false;//закрыт или открыт наш dialog для создания заявки
   ADD_TO_FAVORITES = 'Add to Favorites';
   REMOVE_FROM_FAVORITES = 'Remove from Favorites';
   requestPopup = 'Форма добавления заявки';
@@ -124,25 +127,15 @@ export class RequestsComponent implements OnInit {
       };
   } 
 
+  saveGridInstance(e: any){
+    this.dataGrid.instance = e.component;
+  }
+
   selectionChanged(data: any) {
     this.selectedItemKeys = data.selectedRowKeys;
+    console.log('selectionChanged');
   }
 
-  deleteRecords() {
-    this.selectedItemKeys.forEach((key) => {
-      this.customDataSource.remove(key);
-    });
-    this.dataGrid.instance.refresh();
-  }
-
-  onToolbarPreparing(e: any) {
-    e.toolbarOptions.items[0].showText = 'always';
-
-    e.toolbarOptions.items.push({
-      location: 'after',
-      template: 'deleteButton',
-    });
-  }
 
   RequestsList: any[];
 
@@ -165,15 +158,19 @@ export class RequestsComponent implements OnInit {
   //Нажатая кнопка "Добавить" в "Форма добавления заявки"
   validateClick(e: any) {
     const result = e.validationGroup.validate();
-    /* if (result.isValid) {
+    if (result.isValid) {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       
     } else {
       notify('Заполните все поля', 'error');
-    } */
+    }
 
     console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
     this.ctreateRequest(this.newRequest);
+    setTimeout(() => {console.log('Создание заявки')},3000);
+    this.dataGrid.instance.refresh();
+    this.popupVisible = false;
+    
   }
 
   ctreateRequest(newRequest: Requests){
@@ -184,7 +181,36 @@ export class RequestsComponent implements OnInit {
       );
   }
 
-  changeFavoriteState(e: any) {
+
+  deleteRequests() {
+    if(this.selectedItemKeys.length == 1){
+      this.selectedItemKeys.forEach((key) => {
+        this.deleteKeyRequest =  key;
+        });
+      console.log('key = '+ this.deleteKeyRequest);
+      this.service.deleteteRequest(this.deleteKeyRequest).subscribe(
+        (data: number) => {this.deleteKeyRequest = data}
+      );
+    } else{
+      this.selectedItemKeys.forEach((key) => {
+        this.deleteKeyRequest =  key;
+        console.log('key = '+ this.deleteKeyRequest);
+        this.service.deleteteRequest(this.deleteKeyRequest).subscribe(
+          (data: number) => {this.deleteKeyRequest = data}
+        );
+      });
+    } 
+    setTimeout(() => {console.log('Удаление заявки')},3000);
+    this.dataGrid.instance.refresh();
+  }
+
+  updateRequest(){
+    console.log(this.selectedItemKeys);
+  }
+
+
+
+/*   changeFavoriteState(e: any) {
     const favoriteState = 'success';//!this.currentHouse.Favorite;
     const message = `This item has been ${
       favoriteState ? 'added to' : 'removed from'
@@ -197,7 +223,7 @@ export class RequestsComponent implements OnInit {
     },
     favoriteState ? 'success' : 'error',
     2000);
-  }
+  } */
 
 
 }

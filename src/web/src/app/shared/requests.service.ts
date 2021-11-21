@@ -38,4 +38,10 @@ export class RequestsService {
     console.log(newRequest);
     return this.http.post<Requests>(this.customerUrl+'/api/requests/new', newRequest);
   }
+
+  deleteteRequest(deleteKeyRequest: number): Observable<number>{
+    //const body = {id: newRequest.id, name: newRequest.name};
+    console.log(this.customerUrl+`/api/requests/${deleteKeyRequest}  Delete`+ deleteKeyRequest);
+    return this.http.delete<number>(`${this.customerUrl}/api/requests/${deleteKeyRequest}`);
+  }
 }

@@ -3,22 +3,24 @@
     [dataSource]="customDataSource"
     [showBorders]="true"
     (onSelectionChanged)="selectionChanged($event)"
+    (onInitialized)="saveGridInstance($event)"
   >
     <dxo-paging [enabled]="false"></dxo-paging>
-    <dxo-editing
+    <!-- <dxo-editing
       mode="cell"
       [allowUpdating]="true"
       [allowAdding]="true"
       [allowDeleting]="true"
     >
-    </dxo-editing>
+    </dxo-editing> -->
+    <!-- <dxo-filterrow :visible="true" /> -->
     <dxo-selection mode="multiple"></dxo-selection>
 
     <dxi-column dataField="id" caption="Номер заявки" [width]="100"></dxi-column>
     <dxi-column dataField="customerName"></dxi-column>
     <dxi-column dataField="name" caption="Название заявки"></dxi-column>
     <dxi-column dataField="phone" caption="Номер телефона заказчика"></dxi-column>
-    <dxi-column dataField="comment" caption="Номер телефона заказчика"></dxi-column>
+    <dxi-column dataField="comment" caption="Описание заявки"></dxi-column>
     
     <!-- 
     <dxi-column dataField="Position" [width]="170"></dxi-column>
@@ -27,7 +29,7 @@
       </dxo-lookup>
     </dxi-column>
     <dxi-column dataField="BirthDate" dataType="date"> </dxi-column> -->
-
+    
     <dxo-toolbar>
       <dxi-item name="addRowButton" showText="always"> 
         <dx-button
@@ -37,10 +39,20 @@
         >
         </dx-button>
       </dxi-item>
-      
+
       <dxi-item location="after">
         <dx-button
-          (onClick)="deleteRecords()"
+          (onClick)="updateRequest()"
+          [disabled]="!selectedItemKeys.length"
+          icon="update"
+          text="Изменить заявку"
+        >
+        </dx-button>
+      </dxi-item>
+
+      <dxi-item location="after">
+        <dx-button
+          (onClick)="deleteRequests()"
           [disabled]="!selectedItemKeys.length"
           icon="trash"
           text="Удалить выделенные заявки"
@@ -51,35 +63,7 @@
   </dx-data-grid>
 
 
-
-<div class="container">
-    Requests
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>RequestId</th>
-                <th>RequestName</th>
-                <th>Options</th>
-            </tr>
-        </thead>
-        <tbody>
-            <tr *ngFor="let dataItem of dataSource2">
-                <td>{{dataItem.id}}</td>
-                <td>{{dataItem.name}}</td>
-                <td>
-                    <button type="button" class="btn btn-light mr-1">
-                        Edit
-                    </button>
-                    <button type="button" class="btn btn-light mr-1">
-                        Delete
-                    </button>
-                </td>
-            </tr>
-        </tbody>
-    </table>
-     <app-requests-form></app-requests-form> 
-</div>
-
+  <!-- Popup для создания заявки -->
 <dx-popup
     [width]="660"
     [height]="320"
@@ -184,3 +168,32 @@
   </dx-popup>
 
  <router-outlet></router-outlet>
+
+<!--  <div class="container">
+  Requests
+  <table class="table table-striped">
+      <thead>
+          <tr>
+              <th>RequestId</th>
+              <th>RequestName</th>
+              <th>Options</th>
+          </tr>
+      </thead>
+      <tbody>
+          <tr *ngFor="let dataItem of dataSource2">
+              <td>{{dataItem.id}}</td>
+              <td>{{dataItem.name}}</td>
+              <td>
+                  <button type="button" class="btn btn-light mr-1">
+                      Edit
+                  </button>
+                  <button type="button" class="btn btn-light mr-1">
+                      Delete
+                  </button>
+              </td>
+          </tr>
+      </tbody>
+  </table>
+   <app-requests-form></app-requests-form> 
+</div>
+ -->
