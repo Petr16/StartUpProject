@@ -19,6 +19,8 @@ import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { CustomersComponent } from './dict/customers/customers.component';
 import { StatusRequestsComponent } from './dict/status-requests/status-requests.component';
+import { UploadComponent } from './upload/upload.component';
+import { DownloadComponent } from './download/download.component';
 
 
 @NgModule({
@@ -32,7 +34,9 @@ import { StatusRequestsComponent } from './dict/status-requests/status-requests.
     AboutComponent,
     NotFoundComponent,
     CustomersComponent,
-    StatusRequestsComponent
+    StatusRequestsComponent,
+    UploadComponent,
+    DownloadComponent
   ],
   imports: [
     BrowserModule,

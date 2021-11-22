@@ -89,7 +89,8 @@ Angular Material - для тулбаров и прочего:
 Гайд (https://material.angular.io/components/categories)
 
 
-
+UploadFiles:
+1)  ng g c upload --spec false
 
 
 

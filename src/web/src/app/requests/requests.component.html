@@ -75,6 +75,18 @@
     </dxo-toolbar>
   </dx-data-grid>
 
+<app-upload></app-upload>
+  
+<div class="photos">
+  <div class="photo">
+    <!-- <img [src]="createImgPath(imgPath)" style="width:60px; height:60px;"> -->
+    <img [src]="onImgPath()" style="width:60px; height:60px;">
+    <app-download></app-download>
+  </div>
+</div>
+  
+
+
 
   <!-- Popup для создания заявки -->
 <dx-popup

@@ -307,20 +307,12 @@ export class RequestsComponent implements OnInit {
     this.newRequest.targetExecutionDate = e.value;
   }
 
-/*   changeFavoriteState(e: any) {
-    const favoriteState = 'success';//!this.currentHouse.Favorite;
-    const message = `This item has been ${
-      favoriteState ? 'added to' : 'removed from'
-    } the Favorites list!`;
-    this.requestPopup = favoriteState;
+  public createImgPath = (serverPath: string) => {
+    return `http://localhost:5000/${serverPath}`;
+  }
+  //"Resources\\Images\\Singular.jpg" - путь приходит с api GetPhotos() ссылка на репо https://github.com/CodeMazeBlog/aspnetcore-webapi-angular-file-download/tree/main/UploadFilesClient/src/app
 
-    notify({
-      message,
-      width: 450,
-    },
-    favoriteState ? 'success' : 'error',
-    2000);
-  } */
-
-
+  public onImgPath() {
+    return `http://localhost:5000/Resources/Images/Singular.jpg`; //правильный путь
+  }
 }
