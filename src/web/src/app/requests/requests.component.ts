@@ -23,7 +23,30 @@ export class RequestsComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
   //@ViewChild(RequestsFormComponent, { static: false }) requestsFormComponent: RequestsFormComponent; //в родительском Angular component позволяет получить все свойства указанного дочернего компонента.
 
-  newRequest: Requests = {id: 0,name:''};
+  /* let newRequest2: {
+    id: 0,
+    name:''
+    customerId: number=0,
+    startDate: Date=new Date,
+    targetExecutionDate: Date=new Date,
+    statusRequestId: number=0,
+    modifyDate: Date=new Date,
+    phone: string='',
+  }; */
+  minDate: Date = new Date();
+  newRequest: Requests = new Requests(); /* = {
+    id: 0,
+    name:''
+    customerId: number=0,
+    startDate: Date=new Date,
+    targetExecutionDate: Date=new Date,
+    statusRequestId: number=0,
+    modifyDate: Date=new Date,
+    phone: string='',
+
+    customerName: Customers,
+    statusRequest: StatusRequests
+  }; */
   customDataSource: CustomStore;
   dataSource2: Requests[] = [];
   
@@ -31,7 +54,7 @@ export class RequestsComponent implements OnInit {
   deleteKeyRequest: number = 0;
   deleteKeysRequest: number[] = [];
   selectedRequest: Requests;
-  editRequest: Requests = {id: 0, name: ''}
+  editRequest: Requests;//= {id: 0, name: ''}
   
   popupVisible = false;//закрыт или открыт наш dialog для создания заявки
   requestPopup = 'Форма добавления заявки';
@@ -144,8 +167,6 @@ export class RequestsComponent implements OnInit {
   }
 
 
-  RequestsList: any[];
-
   ngOnInit(): void {
     //this.refreshRequestsList();
     //this.getRequestsAxios();
@@ -165,9 +186,11 @@ export class RequestsComponent implements OnInit {
   //Нажатая кнопка "Добавить" в "Форма добавления заявки"
   validateClick(e: any) {
     const result = e.validationGroup.validate();
+    this.newRequest.startDate = new Date();
     if (result.isValid) {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
+      console.log(this.newRequest);
       this.ctreateRequest(this.newRequest);
       setTimeout(() => {console.log('Создание заявки')},5000);
       this.dataGrid.instance.refresh();
@@ -204,7 +227,23 @@ export class RequestsComponent implements OnInit {
     console.log(this.dataGrid.instance.getSelectedRowsData()[0].name);
     this.editRequest = {
       id: this.selectedItemKeys[0],
-      name: this.dataGrid.instance.getSelectedRowsData()[0].name
+      name: this.dataGrid.instance.getSelectedRowsData()[0].name,
+      customerId: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
+      startDate: this.dataGrid.instance.getSelectedRowsData()[0].startDate,
+      targetExecutionDate: this.dataGrid.instance.getSelectedRowsData()[0].targetExecutionDate,
+      statusRequestId: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
+      modifyDate: this.dataGrid.instance.getSelectedRowsData()[0].modifyDate,
+      phone: this.dataGrid.instance.getSelectedRowsData()[0].phone,
+      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment
+
+      /* customerName: {
+        id: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
+        customername: this.dataGrid.instance.getSelectedRowsData()[0].Customers.name
+      },
+      statusRequest:{
+        id: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
+        statusrequestname: this.dataGrid.instance.getSelectedRowsData()[0].StatusRequests.name
+      } */
     }
     console.log(this.editRequest);
 
@@ -240,12 +279,34 @@ export class RequestsComponent implements OnInit {
 
     const request  = {
       id: this.selectedItemKeys[0],
-      name: this.dataGrid.instance.getSelectedRowsData()[0].name
+      name: this.dataGrid.instance.getSelectedRowsData()[0].name,
+      customerId: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
+      startDate: this.dataGrid.instance.getSelectedRowsData()[0].startDate,
+      targetExecutionDate: this.dataGrid.instance.getSelectedRowsData()[0].targetExecutionDate,
+      statusRequestId: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
+      modifyDate: this.dataGrid.instance.getSelectedRowsData()[0].modifyDate,
+      phone: this.dataGrid.instance.getSelectedRowsData()[0].phone ,
+      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment
+     /* customerName: {
+        id: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
+        customername: this.dataGrid.instance.getSelectedRowsData()[0].Customers.name
+      },
+      statusRequest:{
+        id: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
+        statusrequestname: this.dataGrid.instance.getSelectedRowsData()[0].StatusRequests.name
+      } */
     }
     console.log(request);
     this.service.setData(request);
     this.router.navigateByUrl('/api/requests/requests-form');
   }
+
+
+  onValueChangedDateBox(e: any){
+    console.log(e.value);
+    this.newRequest.targetExecutionDate = e.value;
+  }
+
 /*   changeFavoriteState(e: any) {
     const favoriteState = 'success';//!this.currentHouse.Favorite;
     const message = `This item has been ${

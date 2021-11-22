@@ -3,15 +3,17 @@ using System;
 using CustomerManager.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CustomerManager.DAL.Migrations
 {
     [DbContext(typeof(CustomerManagerDbContext))]
-    partial class CustomerManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121223750_ToNullablesOfRequests")]
+    partial class ToNullablesOfRequests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -45,10 +47,6 @@ namespace CustomerManager.DAL.Migrations
                         .HasColumnName("id")
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
-
-                    b.Property<string>("Comment")
-                        .HasColumnName("comment")
-                        .HasColumnType("text");
 
                     b.Property<int>("CustomerId")
                         .HasColumnName("customer_id")

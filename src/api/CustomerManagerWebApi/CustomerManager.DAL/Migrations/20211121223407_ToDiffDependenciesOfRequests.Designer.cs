@@ -3,15 +3,17 @@ using System;
 using CustomerManager.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CustomerManager.DAL.Migrations
 {
     [DbContext(typeof(CustomerManagerDbContext))]
-    partial class CustomerManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121223407_ToDiffDependenciesOfRequests")]
+    partial class ToDiffDependenciesOfRequests
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,15 +48,11 @@ namespace CustomerManager.DAL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Comment")
-                        .HasColumnName("comment")
-                        .HasColumnType("text");
-
                     b.Property<int>("CustomerId")
                         .HasColumnName("customer_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("ModifyDate")
+                    b.Property<DateTime>("ModifyDate")
                         .HasColumnName("modify_date")
                         .HasColumnType("timestamp without time zone");
 
@@ -66,15 +64,15 @@ namespace CustomerManager.DAL.Migrations
                         .HasColumnName("phone")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnName("start_date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("StatusRequestId")
+                    b.Property<int>("StatusRequestId")
                         .HasColumnName("status_request_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("TargetExecutionDate")
+                    b.Property<DateTime>("TargetExecutionDate")
                         .HasColumnName("target_execution_date")
                         .HasColumnType("timestamp without time zone");
 

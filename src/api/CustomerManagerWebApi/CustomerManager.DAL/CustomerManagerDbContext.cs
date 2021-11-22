@@ -6,6 +6,8 @@ namespace CustomerManager.DAL
     public class CustomerManagerDbContext : DbContext
     {
         public DbSet<Request> Requests { get; set; }
+        public DbSet<Customer> Customers { get; set; }
+        public DbSet<StatusRequest> StatusRequests { get; set; }
 
         public CustomerManagerDbContext(DbContextOptions<CustomerManagerDbContext> options) : base(options)
         {

@@ -8,11 +8,15 @@ namespace CustomerManager.DAL
         private readonly CustomerManagerDbContext _dbContext;
 
         public IRequestRepository RequestRepo { get; }
+        public ICustomerRepository CustomerRepo { get; }
+        public IStatusRequestRepository StatusRequestRepo { get; }
 
         public UnitOfWork(CustomerManagerDbContext dbContext)
         {
             _dbContext = dbContext;
             RequestRepo = new RequestRepository(_dbContext);
+            CustomerRepo = new CustomerRepository(_dbContext);
+            StatusRequestRepo = new StatusRequestRepository(_dbContext);
         }
 
 

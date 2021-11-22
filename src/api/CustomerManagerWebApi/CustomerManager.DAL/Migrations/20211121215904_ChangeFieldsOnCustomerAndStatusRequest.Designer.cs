@@ -3,15 +3,17 @@ using System;
 using CustomerManager.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CustomerManager.DAL.Migrations
 {
     [DbContext(typeof(CustomerManagerDbContext))]
-    partial class CustomerManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211121215904_ChangeFieldsOnCustomerAndStatusRequest")]
+    partial class ChangeFieldsOnCustomerAndStatusRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -46,15 +48,11 @@ namespace CustomerManager.DAL.Migrations
                         .HasColumnType("integer")
                         .HasAnnotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn);
 
-                    b.Property<string>("Comment")
-                        .HasColumnName("comment")
-                        .HasColumnType("text");
-
                     b.Property<int>("CustomerId")
                         .HasColumnName("customer_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("ModifyDate")
+                    b.Property<DateTime>("ModifyDate")
                         .HasColumnName("modify_date")
                         .HasColumnType("timestamp without time zone");
 
@@ -66,20 +64,26 @@ namespace CustomerManager.DAL.Migrations
                         .HasColumnName("phone")
                         .HasColumnType("text");
 
-                    b.Property<DateTime?>("StartDate")
+                    b.Property<DateTime>("StartDate")
                         .HasColumnName("start_date")
                         .HasColumnType("timestamp without time zone");
 
-                    b.Property<int?>("StatusRequestId")
+                    b.Property<int>("StatusRequestId")
                         .HasColumnName("status_request_id")
                         .HasColumnType("integer");
 
-                    b.Property<DateTime?>("TargetExecutionDate")
+                    b.Property<DateTime>("TargetExecutionDate")
                         .HasColumnName("target_execution_date")
                         .HasColumnType("timestamp without time zone");
 
                     b.HasKey("Id")
                         .HasName("pk_requests");
+
+                    b.HasIndex("CustomerId")
+                        .HasName("ix_requests_customer_id");
+
+                    b.HasIndex("StatusRequestId")
+                        .HasName("ix_requests_status_request_id");
 
                     b.ToTable("requests");
                 });
@@ -100,6 +104,23 @@ namespace CustomerManager.DAL.Migrations
                         .HasName("pk_status_requests");
 
                     b.ToTable("status_requests");
+                });
+
+            modelBuilder.Entity("CustomerManager.DAL.Entities.Request", b =>
+                {
+                    b.HasOne("CustomerManager.DAL.Entities.Customer", "Customername")
+                        .WithMany()
+                        .HasForeignKey("CustomerId")
+                        .HasConstraintName("fk_requests_customers_customer_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("CustomerManager.DAL.Entities.StatusRequest", "Statusrequestname")
+                        .WithMany()
+                        .HasForeignKey("StatusRequestId")
+                        .HasConstraintName("fk_requests_status_requests_status_request_id")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

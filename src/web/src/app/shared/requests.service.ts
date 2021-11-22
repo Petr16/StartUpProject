@@ -1,6 +1,8 @@
 import { Inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Requests } from './requests.model'
+import { Customers } from './customers.model'
+import { StatusRequests } from './status-requests.model'
 import { catchError, Observable } from 'rxjs';
 import { CUSTOMER_API_URL } from '../app-injection-customer';
 import { Router } from '@angular/router';
@@ -32,7 +34,23 @@ export class RequestsService {
     clearData(){
       this.serviceDataRequests = {
         id: 0,
-        name: ''
+        name: '',
+        customerId: 0,
+        startDate: new Date,
+        targetExecutionDate: new Date,
+        statusRequestId: 0,
+        modifyDate: new Date,
+        phone: '' ,
+        comment: ''
+
+        /*customerName: {
+          id: 0,
+          customername: ''
+        },
+        statusRequest: {
+          id: 0,
+          statusrequestname: ''
+        }  */
       };
     }
 
@@ -47,6 +65,8 @@ export class RequestsService {
   formData: Requests = new Requests();
   list: Requests[];
 
+
+  //////////Requests
   refreshList(): Observable<any[]> {
       console.log(this.customerUrl+'/api/requests');
     return this.http.get<any>(this.customerUrl+'/api/requests')
@@ -74,4 +94,5 @@ export class RequestsService {
     console.log(this.customerUrl+`/api/requests/${editRequest}  Delete`+ editRequest);
     return this.http.put<Requests>(`${this.customerUrl}/api/requests/${editRequest.id}`, editRequest);
   }
+
 }

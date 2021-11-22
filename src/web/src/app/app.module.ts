@@ -17,6 +17,8 @@ import { CUSTOMER_API_URL } from './app-injection-customer';
 import { environment } from 'src/environments/environment';
 import { AboutComponent } from './about/about.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { CustomersComponent } from './dict/customers/customers.component';
+import { StatusRequestsComponent } from './dict/status-requests/status-requests.component';
 
 
 @NgModule({
@@ -28,7 +30,9 @@ import { NotFoundComponent } from './not-found/not-found.component';
     HeaderComponent,
     FooterComponent,
     AboutComponent,
-    NotFoundComponent
+    NotFoundComponent,
+    CustomersComponent,
+    StatusRequestsComponent
   ],
   imports: [
     BrowserModule,

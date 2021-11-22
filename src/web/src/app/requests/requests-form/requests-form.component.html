@@ -17,18 +17,18 @@
           dataField="name"
           [label]="{ text: 'Название заявки' }"
         ></dxi-item>
-        <dxi-item
-        datafield="customer"
-        [label]="{ text: 'Заказчик заявки' }"
+        <dxi-item 
+          dataField="customerId"
+          [label]="{ text: 'Заказчик заявки' }"
         ></dxi-item>
         <dxi-item
-          dataField="ДатаРегистрацииЗаявки"
+          dataField="startDate"
           editorType="dxDateBox"
           [label]="{ text: 'Дата регистрации заявки' }"
           [editorOptions]="{ width: '100%' }"
         ></dxi-item>
         <dxi-item
-          dataField="ЦелеваяДатаВыполненияЗаявки"
+          dataField="targetExecutionDate"
           editorType="dxDateBox"
           [label]="{ text: 'Целевая дата выполнения заявки' }"
           [editorOptions]="{ width: '100%' }"
@@ -38,25 +38,22 @@
     <dxi-item itemType="group" cssClass="second-group" [colCount]="2">
       <dxi-item itemType="group">
         <dxi-item
-          dataField="State"
-          editorType="dxSelectBox"
+          dataField="statusRequestId"
           [label]="{ text: 'Состояние заявки' }"
-          [editorOptions]="{ items: states }"
         ></dxi-item>
         <dxi-item
-          dataField="ДатаВыполненияЗаявки"
+          dataField="modifyDate"
           editorType="dxDateBox"
-          [label]="{ text: 'Дата выполнения заявки' }"
+          [label]="{ text: 'Дата изменения заявки' }"
           [editorOptions]="{ width: '100%' }"
         ></dxi-item>
         <dxi-item
-          dataField="КонтактныйТелефон"
+          dataField="phone"
           [label]="{ text: 'Контактный телефон' }"
-          [editorOptions]="{ mask: '+8 (000) 000-0000' }"
         ></dxi-item>
       </dxi-item>
       <dxi-item
-        dataField="Комментарий"
+        dataField="comment"
         [colSpan]="2"
         editorType="dxTextArea"
         [editorOptions]="{ height: 140 }"

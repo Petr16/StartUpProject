@@ -27,10 +27,10 @@ const textForHeader = `
 const navigation: List[] = [
   { id: 1, text: 'Home', icon: 'product', sourceUrl: '/api/home' },
   { id: 2, text: 'Requests', icon: 'money', sourceUrl: '/api/requests'  },
-  { id: 3, text: 'Customers', icon: 'group', sourceUrl: '/api/home'  },
-  { id: 4, text: 'Contacts', icon: 'card', sourceUrl: '/api/home'  },
-  { id: 5, text: 'Reports', icon: 'chart', sourceUrl: '/api/home'  },
-  { id: 7, text: 'About', icon: 'chart', sourceUrl: '/api/about'  },
+  { id: 3, text: 'Customers', icon: 'group', sourceUrl: '/api/customers'  },
+  /* { id: 4, text: 'Contacts', icon: 'card', sourceUrl: '/api/home'  }, */
+  { id: 4, text: 'Statuses', icon: 'chart', sourceUrl: '/api/status-requests'  },
+  { id: 5, text: 'About', icon: 'chart', sourceUrl: '/api/about'  },
 ];
 
 @Injectable({

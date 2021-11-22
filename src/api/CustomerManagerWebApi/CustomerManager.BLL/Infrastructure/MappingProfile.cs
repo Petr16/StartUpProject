@@ -12,6 +12,10 @@ namespace CustomerManager.BLL.Infrastructure
             //CreateMap<Request, RequestVM>();
             //CreateMap<RequestVM, Request>();
             CreateMap<Request, RequestVM>().ReverseMap();
+
+            CreateMap<Customer, CustomerVM>().ReverseMap();
+
+            CreateMap<StatusRequest, StatusRequestVM>().ReverseMap();
         }
     }
 }

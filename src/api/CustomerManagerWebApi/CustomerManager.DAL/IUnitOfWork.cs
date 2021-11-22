@@ -9,6 +9,8 @@ namespace CustomerManager.DAL
     public interface IUnitOfWork
     {
         IRequestRepository RequestRepo { get; }
+        ICustomerRepository CustomerRepo { get; }
+        IStatusRequestRepository StatusRequestRepo { get; }
 
         Task<int> SaveAsync();
     }

@@ -1,0 +1,147 @@
+<dx-data-grid
+    #gridRequests
+    id="gridContainer"
+    [dataSource]="customDataSource"
+    [showBorders]="true"
+    [columnAutoWidth]="true"
+    (onSelectionChanged)="selectionChanged($event)"
+    (onInitialized)="saveGridInstance($event)"
+    [selectedRowKeys]="[]"
+  >
+    <dxo-paging [enabled]="false"></dxo-paging>
+    <dxo-selection mode="multiple"></dxo-selection>
+
+    <dxi-column dataField="id" caption="Id заказчика" [width]="100"></dxi-column>
+    <dxi-column dataField="customername" caption="Имя заказчика"></dxi-column>
+    
+    <dxo-toolbar>
+      <dxi-item name="addRowButton" showText="always"> 
+        <dx-button
+          (onClick)="addCustomer()"
+          icon="add"
+          text="Добавить заказчика"
+        >
+        </dx-button>
+      </dxi-item>
+
+      <dxi-item location="after">
+        <dx-button
+          (onClick)="updateCustomer()"
+          [disabled]="!selectedItemKeys.length"
+          icon="update"
+          text="Изменить имя заказчика"
+        >
+        </dx-button>
+      </dxi-item>
+
+      <dxi-item location="after">
+        <dx-button
+          (onClick)="deleteCustomers()"
+          [disabled]="!selectedItemKeys.length"
+          icon="trash"
+          text="Удалить заказчика"
+        >
+        </dx-button>
+      </dxi-item>
+    </dxo-toolbar>
+  </dx-data-grid>
+
+
+  <!-- Popup для добавления заказчика -->
+<dx-popup
+    [width]="660"
+    [height]="320"
+    [showTitle]="true"
+    [title]="customerPopup"
+    [dragEnabled]="true"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupVisible"
+  >
+    <div *dxTemplate="let data of 'content'">
+      <div class="popup-property-details">
+        <!-- editors -->
+        <div class="editors">
+          <div class="editors-container">
+            <div class="left">
+              <dx-text-box
+                value=""
+                width="100%"
+                label="Имя заказчика"
+                placeholder="Иванов И.И."
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+                [(value)]="this.customername"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-text-box>
+            </div>
+        </div>
+
+          <div class="center">
+            <dx-button
+              text="Добавить"
+              type="default"
+              (onClick)="validateClick($event)"
+              class="validate"
+            ></dx-button>
+          </div>
+          
+        </div>
+        <!-- editors -->
+      </div>
+    </div>
+  </dx-popup>
+
+<!-- Popup для изменения заявки -->
+<dx-popup
+    [width]="660"
+    [height]="320"
+    [showTitle]="true"
+    [title]="customerEditPopupCustom"
+    [dragEnabled]="true"
+    [closeOnOutsideClick]="true"
+    [(visible)]="popupEditVisible"
+  >
+  <div *dxTemplate="let data of 'content'">
+    <div class="popup-property-details">
+      
+      <div class="editors">
+        <div class="editors-container">
+          <div class="left">
+            <dx-text-box
+              value=""
+              width="100%"
+              label="Имя заказчика"
+              placeholder="Иванов И.И."
+              [stylingMode]="stylingMode"
+              [labelMode]="labelMode"
+            >
+              <dx-validator>
+                <dxi-validation-rule type="required"> </dxi-validation-rule>
+              </dx-validator>
+            </dx-text-box>
+          </div>
+        </div>
+        <div class="center">
+          <dx-button
+            text="Изменить"
+            type="default"
+            (onClick)="validateClickUpdate($event)"
+            class="validate"
+          ></dx-button>
+        </div>
+        
+      </div>
+      <!-- editors -->
+    </div>
+  </div>
+  </dx-popup>
+
+
+
+
+
+
+ <router-outlet></router-outlet>

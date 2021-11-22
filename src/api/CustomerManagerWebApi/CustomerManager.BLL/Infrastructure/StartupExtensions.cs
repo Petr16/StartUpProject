@@ -26,6 +26,8 @@ namespace CustomerManager.BLL.Infrastructure
 		{
 			services.AddScoped<IUnitOfWork, UnitOfWork>();
 			services.AddScoped<RequestService>();
+			services.AddScoped<CustomerService>();
+			services.AddScoped<StatusRequestService>();
 		}
 	}
 }

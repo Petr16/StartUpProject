@@ -59,7 +59,7 @@ export class HeaderComponent implements OnInit {
   onItemClickMenu(e: any) {
     var iData = e.itemData;
     console.log(iData);
-    console.log(this.customerUrl+iData.sourceUrl);
+    console.log("Header=>"+this.customerUrl+iData.sourceUrl);
     this.router.navigateByUrl(iData.sourceUrl);
   }
 }

@@ -21,10 +21,15 @@
     <dxo-selection mode="multiple"></dxo-selection>
 
     <dxi-column dataField="id" caption="Номер заявки" [width]="100"></dxi-column>
-    <dxi-column dataField="customerName"></dxi-column>
     <dxi-column dataField="name" caption="Название заявки"></dxi-column>
-    <dxi-column dataField="phone" caption="Номер телефона заказчика"></dxi-column>
-    <dxi-column dataField="comment" caption="Описание заявки"></dxi-column>
+    <dxi-column dataField="customerId" caption="Заказчик заявки"></dxi-column>
+    
+    <dxi-column dataField="startDate" caption="Дата начала"></dxi-column>
+    <dxi-column dataField="targetExecutionDate" caption="Целевая дата"></dxi-column>
+    <dxi-column dataField="statusRequestId" caption="Статус заявки"></dxi-column>
+    <dxi-column dataField="modifyDate" caption="Дата изменения"></dxi-column>
+    <dxi-column dataField="phone" caption="Номер телефона"></dxi-column>
+    <!-- <dxi-column dataField="comment" caption="Описание заявки"></dxi-column> -->
     
     <!-- 
     <dxi-column dataField="Position" [width]="170"></dxi-column>
@@ -83,18 +88,18 @@
         <div class="editors">
           <div class="editors-container">
             <div class="left">
-              <dx-text-box
-                value=""
+              <dx-number-box
                 width="100%"
-                label="Имя заказчика"
+                label="Id заказчика"
                 placeholder="Иванов И.И."
                 [stylingMode]="stylingMode"
                 [labelMode]="labelMode"
+                [(value)]="this.newRequest.customerId"
               >
                 <dx-validator>
                   <dxi-validation-rule type="required"> </dxi-validation-rule>
                 </dx-validator>
-              </dx-text-box>
+              </dx-number-box>
             </div>
             <div class="right">
               <dx-text-box
@@ -116,12 +121,13 @@
           <div class="editors-container">
             <div class="left">
               <dx-text-box
-                width="100%"
+                width="75%"
                 label="Номер телефона"
                 mask="+7 (000) 000-0000"
                 [maskRules]="phoneRules"
                 [stylingMode]="stylingMode"
                 [labelMode]="labelMode"
+                [(value)]="this.newRequest.phone"
               >
                 <dx-validator>
                   <dxi-validation-rule type="required"> </dxi-validation-rule>
@@ -130,17 +136,34 @@
             </div>
             <div class="right">
               <dx-date-box
-                width="100%"
+                value=""
+                width="75%"
                 label="Дата исполнения"
                 placeholder=""
+                [min]="minDate"
                 [stylingMode]="stylingMode"
                 [labelMode]="labelMode"
+                (onValueChanged)="onValueChangedDateBox($event)">
               >
                 <dx-validator>
                   <dxi-validation-rule type="required"> </dxi-validation-rule>
                 </dx-validator>
               </dx-date-box>
             </div>
+            <div class="right">
+              <dx-number-box
+                width="85%"
+                label="Id статуса заявки"
+                [stylingMode]="stylingMode"
+                [labelMode]="labelMode"
+                [(value)]="this.newRequest.statusRequestId"
+              >
+                <dx-validator>
+                  <dxi-validation-rule type="required"> </dxi-validation-rule>
+                </dx-validator>
+              </dx-number-box>
+            </div>
+            
           </div>
           
           <div class="center">
@@ -152,6 +175,7 @@
               label="Комментарий"
               [stylingMode]="stylingMode"
               [labelMode]="labelMode"
+              [(value)]="this.newRequest.comment"
             ></dx-text-area>
             </div>
           </div>
