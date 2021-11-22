@@ -9,6 +9,10 @@
     [selectedRowKeys]="[]"
     (onRowDblClick)="toRequestsForm($event)"
   >
+    <dxo-filter-row [visible]="true"></dxo-filter-row>
+    <dxo-scrolling
+        mode="virtual"> <!-- or "standard" | "infinite" -->
+    </dxo-scrolling>
     <dxo-paging [enabled]="false"></dxo-paging>
     <!-- <dxo-editing
       mode="cell"
@@ -24,10 +28,10 @@
     <dxi-column dataField="name" caption="Название заявки"></dxi-column>
     <dxi-column dataField="customerId" caption="Заказчик заявки"></dxi-column>
     
-    <dxi-column dataField="startDate" caption="Дата начала"></dxi-column>
-    <dxi-column dataField="targetExecutionDate" caption="Целевая дата"></dxi-column>
+    <dxi-column dataField="startDate" caption="Дата начала" dataType="date"></dxi-column>
+    <dxi-column dataField="targetExecutionDate" caption="Целевая дата" dataType="date"></dxi-column>
     <dxi-column dataField="statusRequestId" caption="Статус заявки"></dxi-column>
-    <dxi-column dataField="modifyDate" caption="Дата изменения"></dxi-column>
+    <dxi-column dataField="modifyDate" caption="Дата изменения" dataType="date"></dxi-column>
     <dxi-column dataField="phone" caption="Номер телефона"></dxi-column>
     <!-- <dxi-column dataField="comment" caption="Описание заявки"></dxi-column> -->
     
