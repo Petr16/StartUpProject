@@ -13,3 +13,8 @@ This is my first startup project on github with technologies: ASP.NET Core Web A
 6) Для работы фронта нужно выполнить npm install в корне фронта (PS C:\StartUpProject\StartUpProject\src\web>) и для запуска - ng serve
 По умолчанию стоит порт 58007
 ![image](https://user-images.githubusercontent.com/82929837/143284459-14038052-d365-4bab-9aae-f93607af9a9b.png)
+
+http://localhost:58007/api/requests
+![image](https://user-images.githubusercontent.com/82929837/143284764-cd81fd30-cd65-469e-b883-92943d5eaeb5.png)
+
+При двойном клике по строке переходит в новый маршрут с описанием выбранной заявки. Файлы можно загружать или скачивать с сервера (картинки .jpg,.jpeg,.png )
