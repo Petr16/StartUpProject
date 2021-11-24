@@ -57,8 +57,9 @@ export class RequestsComponent implements OnInit {
   birthDate = new Date(1981, 5, 3);
 
   public photos: any[] = [];
-
-  fileUrlCreateUpdate: string = '';
+  public photoDownloaded: boolean = false;
+  //Для премещения строк
+  /* tasks: Array<Task>; */
 
   constructor(
     public service: RequestsService, 
@@ -116,6 +117,8 @@ export class RequestsComponent implements OnInit {
       console.log(this.dataGrid);
       console.log(this.customDataSource.key());
 
+      ///Для перемещения строк
+      /* this.tasks = service.getTasks(); */
 
       //Для popup типа снекбара
       this.emailButtonOptions = {
@@ -179,8 +182,10 @@ export class RequestsComponent implements OnInit {
       this.newRequest.fileUrl = this.service.fileUrlName;
       console.log('создание this.newRequest.fileUrl = '+this.newRequest.fileUrl);
       this.ctreateRequest(this.newRequest);
-      setTimeout(() => {console.log('Создание заявки')},5000);
-      this.dataGrid.instance.refresh();
+      setTimeout(() => {console.log('Создание заявки');
+                        this.dataGrid.instance.refresh();
+                        },1000);
+      
       this.popupVisible = false;
 
     } else {
@@ -205,8 +210,14 @@ export class RequestsComponent implements OnInit {
           (data: number) => {this.deleteKeyRequest = data}
         );
       });
-    setTimeout(() => {console.log('Удаление заявки')},3000);
-    this.dataGrid.instance.refresh();
+      let timeDelay = 1000;
+      if(this.selectedItemKeys.length > 5){
+        timeDelay = 3000;
+      }
+    setTimeout(() => {console.log('Удаление заявки');
+                      this.dataGrid.instance.refresh();
+                      },timeDelay);
+    
   }
 
   updateRequest(){
@@ -248,8 +259,10 @@ export class RequestsComponent implements OnInit {
       this.editRequest.fileUrl = this.service.fileUrlName;
       //console.log('this.editRequest.fileUrl = '+this.editRequest.fileUrl); а надо ли? Помимо this.editRequest.fileUrl нужно еще вытащить старый урл и удалить его, т.к. имя может совпадать, либо при вставке цеплять к названию GUID(или вместо него)
       this.toEditRequest(this.editRequest);
-      setTimeout(() => {console.log('Изменение заявки')},5000);
-      this.dataGrid.instance.refresh();
+      setTimeout(() => {console.log('Изменение заявки');
+                        this.dataGrid.instance.refresh();
+                      },1000);
+      
       this.popupEditVisible = false;
 
     } else {
@@ -304,11 +317,22 @@ export class RequestsComponent implements OnInit {
   //"Resources\\Images\\Singular.jpg" - путь приходит с api GetPhotos() ссылка на репо https://github.com/CodeMazeBlog/aspnetcore-webapi-angular-file-download/tree/main/UploadFilesClient/src/app
 
   public onImgPath() {
-    return `http://localhost:5000/Resources/Images/Singular.jpg`; //правильный путь
+    return `http://localhost:5000/Resources/Images/${this.service.fileUrlName}`;//Singular.jpg`; //правильный путь
   }
 
   private getPhotos = () => {
     this.fileService.getPhotos().subscribe((data: any) => this.photos = data['photos']);
     console.log(this.photos);
+  }
+
+  ///Перемещение строк(Row Drag & Drop)
+  onReorder(e: any) {
+    /* const visibleRows = e.component.getVisibleRows();
+    const toIndex = this.tasks.indexOf(visibleRows[e.toIndex].data);
+    const fromIndex = this.tasks.indexOf(e.itemData);
+
+    this.tasks.splice(fromIndex, 1);
+    this.tasks.splice(toIndex, 0, e.itemData); */
+    console.log('Перемещение не сделал..');
   }
 }

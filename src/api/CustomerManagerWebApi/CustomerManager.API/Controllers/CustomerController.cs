@@ -16,13 +16,13 @@ namespace CustomerManager.API.Controllers
 {
     [Route("api/customers")]
     [ApiController]
-    public class CustomerController : ControllerBase
+    public class CustomersController : ControllerBase
     {
 
 
         private readonly CustomerService _customerService;
 
-        public CustomerController(CustomerService customerService)
+        public CustomersController(CustomerService customerService)
         {
             _customerService = customerService;
         }

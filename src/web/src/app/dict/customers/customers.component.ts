@@ -143,19 +143,21 @@ export class CustomersComponent implements OnInit {
   validateClick(e: any) {
     const result = e.validationGroup.validate();
     console.log(this.customername)
-    this.newCustomer.customername = 'Zirby';//this.customername;
+    this.newCustomer.customername = this.customername;
     console.log('Создание заказчика'+ this.newCustomer.customername)
     if (result.isValid) {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       console.log('this.newCustomer.name = '+this.newCustomer.customername+ this.newCustomer.id);
       this.ctreateCustomer(this.newCustomer);
-      setTimeout(() => {console.log('Создание заявки')},5000);
+      setTimeout(() => {console.log('Добавление заказчика');
+                        this.dataGrid.instance.refresh();
+                        },1000);
       this.popupVisible = false;
 
     } else {
       notify('Заполните все поля', 'error');
     }
-    this.dataGrid.instance.refresh();
+    
   }
 
   ctreateCustomer(newCustomer: Customers){
@@ -176,8 +178,10 @@ export class CustomersComponent implements OnInit {
           (data: number) => {this.deleteKeyCustomer = data}
         );
       });
-    setTimeout(() => {console.log('Удаление заявки')},3000);
-    this.dataGrid.instance.refresh();
+    setTimeout(() => {console.log('Удаление заказчика')
+                      this.dataGrid.instance.refresh();
+                      },1000);
+    
   }
 
   updateCustomer(){
@@ -200,8 +204,10 @@ export class CustomersComponent implements OnInit {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       console.log('this.newRequest.name = '+this.editCustomer.customername+ this.editCustomer.id);
       this.toEditCustomer(this.editCustomer);
-      setTimeout(() => {console.log('Изменение заявки')},5000);
-      this.dataGrid.instance.refresh();
+      setTimeout(() => {console.log('Изменение заказчика');
+                        this.dataGrid.instance.refresh();
+                      },1000);
+      
       this.popupEditVisible = false;
 
     } else {

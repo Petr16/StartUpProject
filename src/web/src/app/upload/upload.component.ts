@@ -2,6 +2,7 @@ import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FileService } from '../shared/file.service';
 import { RequestsService } from '../shared/requests.service';
+import {RequestsComponent} from '../requests/requests.component'
 
 @Component({
   selector: 'app-upload',
@@ -15,7 +16,8 @@ export class UploadComponent implements OnInit {
 
   constructor(
     private fileService: FileService,
-    private requestsService: RequestsService
+    private requestsService: RequestsService,
+    private requestsComponent: RequestsComponent
     ) { }
 
   ngOnInit(): void {
@@ -48,6 +50,9 @@ export class UploadComponent implements OnInit {
             this.onUploadFinished.emit(event.body);
         }
     });
+    this.requestsComponent.onImgPath();
+    setTimeout(()=>{this.requestsComponent.photoDownloaded = true;},2000)
+    
   };
 
 

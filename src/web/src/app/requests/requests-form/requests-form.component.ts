@@ -26,14 +26,11 @@ export class RequestsFormComponent implements OnInit {
 
   constructor(public service:RequestsService) { 
     this.requestForm = this.service.getData();
-    /* this.requestFormDTO = {
-      НомерЗаявки: this.requestForm.id,
-      НазваниеЗаявки: this.requestForm.name
-    } */
-    this.urlImage = 'https://avatars.mds.yandex.net/get-kinopoisk-image/1773646/f941b0c3-76cd-420b-8f84-8203f62954ee/220x330';
     
-    console.log("requestForm: "+this.requestForm);
-    console.log(this.requestForm);
+    this.urlImage = 'http://localhost:5000/Resources/Images/'+ this.requestForm.fileUrl;
+
+    console.log("requestForm: URL"+this.requestForm.fileUrl);
+  
   }
 
 

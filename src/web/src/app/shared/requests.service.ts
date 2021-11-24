@@ -67,6 +67,11 @@ export class RequestsService {
   list: Requests[];
   fileUrlName: string;
 
+  ///Для перемещения строк
+  /* getTasks(): Task[] {
+    return tasks;
+  } */
+
   //////////Requests
   refreshList(): Observable<any[]> {
       console.log(this.customerUrl+'/api/requests');

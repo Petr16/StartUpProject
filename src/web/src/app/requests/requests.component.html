@@ -3,17 +3,22 @@
     id="gridContainer"
     [dataSource]="customDataSource"
     [showBorders]="true"
+    [showColumnLines]="true"
+    [showRowLines]="true"
+    [rowAlternationEnabled]="true"
     [columnAutoWidth]="true"
     (onSelectionChanged)="selectionChanged($event)"
     (onInitialized)="saveGridInstance($event)"
     [selectedRowKeys]="[]"
     (onRowDblClick)="toRequestsForm($event)"
+    
   >
-    <dxo-filter-row [visible]="true"></dxo-filter-row>
-    <dxo-scrolling
-        mode="virtual"> <!-- or "standard" | "infinite" -->
-    </dxo-scrolling>
-    <dxo-paging [enabled]="false"></dxo-paging>
+    <!-- <dxo-filter-row [visible]="true"></dxo-filter-row> -->
+    <dxo-header-filter [visible]="true"></dxo-header-filter>
+    <!-- <dxo-scrolling
+        mode="virtual"> or "standard" | "infinite"
+    </dxo-scrolling> -->
+    <dxo-paging [enabled]="true" [pageSize]="10"></dxo-paging>
     <!-- <dxo-editing
       mode="cell"
       [allowUpdating]="true"
@@ -23,6 +28,12 @@
     </dxo-editing> -->
     <!-- <dxo-filterrow :visible="true" /> -->
     <dxo-selection mode="multiple"></dxo-selection>
+    <dxo-row-dragging
+      [allowReordering]="true"
+      [onReorder]="onReorder"
+      [showDragIcons]="false"
+    ></dxo-row-dragging>
+    
 
     <dxi-column dataField="id" caption="Номер заявки" [width]="100"></dxi-column>
     <dxi-column dataField="name" caption="Название заявки"></dxi-column>
@@ -35,14 +46,6 @@
     <dxi-column dataField="phone" caption="Номер телефона"></dxi-column>
     <dxi-column dataField="comment" caption="Описание заявки"></dxi-column>
     <dxi-column dataField="fileUrl" caption="Файлы"></dxi-column>
-    
-    <!-- 
-    <dxi-column dataField="Position" [width]="170"></dxi-column>
-    <dxi-column dataField="StateID" caption="State" [width]="125">
-      <dxo-lookup [dataSource]="states" displayExpr="Name" valueExpr="ID">
-      </dxo-lookup>
-    </dxi-column>
-    <dxi-column dataField="BirthDate" dataType="date"> </dxi-column> -->
     
     <dxo-toolbar>
       <dxi-item name="addRowButton" showText="always"> 
@@ -76,16 +79,6 @@
     </dxo-toolbar>
   </dx-data-grid>
 
-<app-upload></app-upload>
-  
-<div class="photos">
-  <div class="photo">
-    <!-- <img [src]="createImgPath(imgPath)" style="width:60px; height:60px;"> -->
-    <img [src]="onImgPath()" style="width:100px; height:100px;">
-    <app-download></app-download>
-  </div>
-</div>
-  
 
 
 
@@ -199,7 +192,7 @@
           <div class="centerfile">
             <div class="photo">
               <div class="col-md-3" style="float: left;">
-                <img [src]="onImgPath()" style="width:180px; height:100px;">
+                <img [src]="onImgPath()" *ngIf="photoDownloaded" style="width:180px; height:100px;">
               </div>
               <div class="col-sm">
                 <app-download [fileUrl]="photos[0]" style="width: 290;"></app-download>
