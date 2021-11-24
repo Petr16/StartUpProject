@@ -41,7 +41,8 @@ export class RequestsService {
         statusRequestId: 0,
         modifyDate: new Date,
         phone: '' ,
-        comment: ''
+        comment: '',
+        fileUrl: ''
 
         /*customerName: {
           id: 0,
@@ -64,7 +65,7 @@ export class RequestsService {
   //readonly baseURL = 'http://localhost:58007/api/requests'
   formData: Requests = new Requests();
   list: Requests[];
-
+  fileUrlName: string;
 
   //////////Requests
   refreshList(): Observable<any[]> {

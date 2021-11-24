@@ -1,10 +1,11 @@
 .download {
     font-weight:bold;
     color:#28a745;
-    margin-left: 15px;
+    margin-left: 30px;
     line-height: 36px;
+    /* font-size: 11px; */
 }
 
-div {
+/* div {
     margin-top: 5px;
-}
+} */

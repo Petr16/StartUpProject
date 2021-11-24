@@ -11,6 +11,7 @@ export class Requests {
     modifyDate: Date=new Date();
     phone: string='';
     comment: string='';
+    fileUrl: string='';
 
     /* customerName: Customers;
     statusRequest: StatusRequests; */

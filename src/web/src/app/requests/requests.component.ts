@@ -13,6 +13,7 @@ import CustomStore from 'devextreme/data/custom_store';
 import { Requests } from '../shared/requests.model';
 import { RequestsFormComponent } from './requests-form/requests-form.component';
 import { Router } from '@angular/router';
+import { FileService } from '../shared/file.service';
 
 @Component({
   selector: 'app-requests',
@@ -21,32 +22,9 @@ import { Router } from '@angular/router';
 })
 export class RequestsComponent implements OnInit {
   @ViewChild(DxDataGridComponent, { static: false }) dataGrid: DxDataGridComponent;
-  //@ViewChild(RequestsFormComponent, { static: false }) requestsFormComponent: RequestsFormComponent; //в родительском Angular component позволяет получить все свойства указанного дочернего компонента.
 
-  /* let newRequest2: {
-    id: 0,
-    name:''
-    customerId: number=0,
-    startDate: Date=new Date,
-    targetExecutionDate: Date=new Date,
-    statusRequestId: number=0,
-    modifyDate: Date=new Date,
-    phone: string='',
-  }; */
   minDate: Date = new Date();
-  newRequest: Requests = new Requests(); /* = {
-    id: 0,
-    name:''
-    customerId: number=0,
-    startDate: Date=new Date,
-    targetExecutionDate: Date=new Date,
-    statusRequestId: number=0,
-    modifyDate: Date=new Date,
-    phone: string='',
-
-    customerName: Customers,
-    statusRequest: StatusRequests
-  }; */
+  newRequest: Requests = new Requests(); 
   customDataSource: CustomStore;
   dataSource2: Requests[] = [];
   
@@ -78,9 +56,14 @@ export class RequestsComponent implements OnInit {
   stylingMode = 'filled';
   birthDate = new Date(1981, 5, 3);
 
+  public photos: any[] = [];
+
+  fileUrlCreateUpdate: string = '';
+
   constructor(
     public service: RequestsService, 
-    private router: Router
+    private router: Router,
+    private fileService: FileService
   ) { 
       function isNotEmpty(value: any) {
         return value !== undefined && value !== null && value !== '';
@@ -155,6 +138,7 @@ export class RequestsComponent implements OnInit {
           this.popupVisible = false;
         },
       };
+
   } 
 
   saveGridInstance(e: any){
@@ -170,6 +154,7 @@ export class RequestsComponent implements OnInit {
   ngOnInit(): void {
     //this.refreshRequestsList();
     //this.getRequestsAxios();
+    this.getPhotos();
   }
 
   refreshRequestsList(){
@@ -191,6 +176,8 @@ export class RequestsComponent implements OnInit {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       console.log('this.newRequest.name = '+this.newRequest.name+ this.newRequest.id);
       console.log(this.newRequest);
+      this.newRequest.fileUrl = this.service.fileUrlName;
+      console.log('создание this.newRequest.fileUrl = '+this.newRequest.fileUrl);
       this.ctreateRequest(this.newRequest);
       setTimeout(() => {console.log('Создание заявки')},5000);
       this.dataGrid.instance.refresh();
@@ -234,7 +221,8 @@ export class RequestsComponent implements OnInit {
       statusRequestId: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
       modifyDate: this.dataGrid.instance.getSelectedRowsData()[0].modifyDate,
       phone: this.dataGrid.instance.getSelectedRowsData()[0].phone,
-      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment
+      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment,
+      fileUrl: this.dataGrid.instance.getSelectedRowsData()[0].fileUrl
 
       /* customerName: {
         id: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
@@ -257,6 +245,8 @@ export class RequestsComponent implements OnInit {
     if (result.isValid) {
       notify('Все поля заполнены, ожидайте конца загрузки', 'success');
       console.log('this.newRequest.name = '+this.editRequest.name+ this.editRequest.id);
+      this.editRequest.fileUrl = this.service.fileUrlName;
+      //console.log('this.editRequest.fileUrl = '+this.editRequest.fileUrl); а надо ли? Помимо this.editRequest.fileUrl нужно еще вытащить старый урл и удалить его, т.к. имя может совпадать, либо при вставке цеплять к названию GUID(или вместо него)
       this.toEditRequest(this.editRequest);
       setTimeout(() => {console.log('Изменение заявки')},5000);
       this.dataGrid.instance.refresh();
@@ -286,7 +276,8 @@ export class RequestsComponent implements OnInit {
       statusRequestId: this.dataGrid.instance.getSelectedRowsData()[0].statusRequestId,
       modifyDate: this.dataGrid.instance.getSelectedRowsData()[0].modifyDate,
       phone: this.dataGrid.instance.getSelectedRowsData()[0].phone ,
-      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment
+      comment: this.dataGrid.instance.getSelectedRowsData()[0].comment,
+      fileUrl: this.dataGrid.instance.getSelectedRowsData()[0].fileUrl
      /* customerName: {
         id: this.dataGrid.instance.getSelectedRowsData()[0].customerId,
         customername: this.dataGrid.instance.getSelectedRowsData()[0].Customers.name
@@ -314,5 +305,10 @@ export class RequestsComponent implements OnInit {
 
   public onImgPath() {
     return `http://localhost:5000/Resources/Images/Singular.jpg`; //правильный путь
+  }
+
+  private getPhotos = () => {
+    this.fileService.getPhotos().subscribe((data: any) => this.photos = data['photos']);
+    console.log(this.photos);
   }
 }

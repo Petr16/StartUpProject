@@ -1,6 +1,7 @@
 import { HttpClient, HttpEventType } from '@angular/common/http';
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
 import { FileService } from '../shared/file.service';
+import { RequestsService } from '../shared/requests.service';
 
 @Component({
   selector: 'app-upload',
@@ -12,7 +13,10 @@ export class UploadComponent implements OnInit {
   public progress: number;
   @Output() public onUploadFinished = new EventEmitter();
 
-  constructor(private fileService: FileService) { }
+  constructor(
+    private fileService: FileService,
+    private requestsService: RequestsService
+    ) { }
 
   ngOnInit(): void {
   }
@@ -25,6 +29,9 @@ export class UploadComponent implements OnInit {
     
     let fileToUpload = <File>files[0];
     const formData = new FormData();
+    console.log('uploadFile');
+    this.requestsService.fileUrlName = fileToUpload.name;
+    console.log(fileToUpload.name);//это надо передать в сервис
     formData.append('file',fileToUpload,fileToUpload.name);
     
     this.fileService.upload(formData).subscribe(event => {

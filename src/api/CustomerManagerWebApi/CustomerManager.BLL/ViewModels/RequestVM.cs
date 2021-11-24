@@ -27,6 +27,8 @@ namespace CustomerManager.BLL.ViewModels
 
         public string? Comment { get; set; }
 
+        public string? FileUrl { get; set; }
+
         //public virtual Customer Customername { get; set; }
 
         //public virtual StatusRequest Statusrequestname { get; set; }

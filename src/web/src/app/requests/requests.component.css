@@ -49,9 +49,12 @@
     padding-right: 10px;
   }
 
+
 .photos {
     margin-top: 20px;
 }
 .photo {
     margin-bottom: 5px;
+    /* height: 150;
+    width: 400; */
 }

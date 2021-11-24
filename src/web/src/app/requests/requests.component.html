@@ -33,7 +33,8 @@
     <dxi-column dataField="statusRequestId" caption="Статус заявки"></dxi-column>
     <dxi-column dataField="modifyDate" caption="Дата изменения" dataType="date"></dxi-column>
     <dxi-column dataField="phone" caption="Номер телефона"></dxi-column>
-    <!-- <dxi-column dataField="comment" caption="Описание заявки"></dxi-column> -->
+    <dxi-column dataField="comment" caption="Описание заявки"></dxi-column>
+    <dxi-column dataField="fileUrl" caption="Файлы"></dxi-column>
     
     <!-- 
     <dxi-column dataField="Position" [width]="170"></dxi-column>
@@ -80,7 +81,7 @@
 <div class="photos">
   <div class="photo">
     <!-- <img [src]="createImgPath(imgPath)" style="width:60px; height:60px;"> -->
-    <img [src]="onImgPath()" style="width:60px; height:60px;">
+    <img [src]="onImgPath()" style="width:100px; height:100px;">
     <app-download></app-download>
   </div>
 </div>
@@ -90,8 +91,8 @@
 
   <!-- Popup для создания заявки -->
 <dx-popup
-    [width]="660"
-    [height]="320"
+    [width]="800"
+    [height]="400"
     [showTitle]="true"
     [title]="requestPopup"
     [dragEnabled]="true"
@@ -178,8 +179,7 @@
                   <dxi-validation-rule type="required"> </dxi-validation-rule>
                 </dx-validator>
               </dx-number-box>
-            </div>
-            
+            </div>  
           </div>
           
           <div class="center">
@@ -195,7 +195,20 @@
             ></dx-text-area>
             </div>
           </div>
-          
+
+          <div class="centerfile">
+            <div class="photo">
+              <div class="col-md-3" style="float: left;">
+                <img [src]="onImgPath()" style="width:180px; height:100px;">
+              </div>
+              <div class="col-sm">
+                <app-download [fileUrl]="photos[0]" style="width: 290;"></app-download>
+                <app-upload style="width: 180;"></app-upload>
+              </div>
+              
+            </div>
+          </div>
+
           <div class="center">
             <dx-button
               text="Добавить"
@@ -316,8 +329,8 @@
   </dx-popup>
 
 
-
-
+<!-- 
+  <app-upload></app-upload> -->
 
 
  <router-outlet></router-outlet>

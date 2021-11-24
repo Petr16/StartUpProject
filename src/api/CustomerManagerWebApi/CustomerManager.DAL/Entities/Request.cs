@@ -30,6 +30,8 @@ namespace CustomerManager.DAL.Entities
 
         public string? Comment { get; set; }
 
+        public string? FileUrl { get; set; }
+
 
 
         //#region Navigation properties

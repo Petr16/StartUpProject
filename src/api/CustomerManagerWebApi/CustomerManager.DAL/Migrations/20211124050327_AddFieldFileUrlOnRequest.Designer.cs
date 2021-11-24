@@ -3,15 +3,17 @@ using System;
 using CustomerManager.DAL;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace CustomerManager.DAL.Migrations
 {
     [DbContext(typeof(CustomerManagerDbContext))]
-    partial class CustomerManagerDbContextModelSnapshot : ModelSnapshot
+    [Migration("20211124050327_AddFieldFileUrlOnRequest")]
+    partial class AddFieldFileUrlOnRequest
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder

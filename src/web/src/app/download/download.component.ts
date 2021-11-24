@@ -20,6 +20,7 @@ export class DownloadComponent implements OnInit {
 
   download() {
     this.fileService.download(this.fileUrl).subscribe((event) => {
+      console.log("Download() url = "+this.fileUrl);
       if (event.type === HttpEventType.UploadProgress){
         if(event.total === undefined){
           event.total = 1;

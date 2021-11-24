@@ -1,9 +1,17 @@
 
 <div class="row" style="margin-bottom:15px;">
-    <div class="col-md-3">
-      <button type="button" class="btn btn-success" (click)="download()">Download File</button>
+    <div class="col-sm">
+      <button 
+        type="button" 
+        class="btn btn-success"
+        style="font-size:11px;"
+        title="Скачать файл"
+        (click)="download()"
+      >
+        Скачать
+      </button>
     </div>
-    <div class="col-md-4">
+    <div class="col-sm">
       <span class="download" *ngIf="progress > 0">
         {{progress}}%
       </span>

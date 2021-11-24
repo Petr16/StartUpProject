@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class FileService {
   constructor(private http: HttpClient) { }
 
   public upload(formData: FormData) {
+    //this.fileUrlCreateUpdateOut = 'Resources/Images/'+ formData.
     return this.http.post(`${this.url}/upload`, formData, {
         reportProgress: true,
         observe: 'events',
@@ -25,7 +27,7 @@ export class FileService {
     });
   }
 
-  public getPhotos() {
+  public getPhotos(){
     return this.http.get(`${this.url}/getPhotos`);
   }
 
