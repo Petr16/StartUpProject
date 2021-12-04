@@ -3,7 +3,7 @@ This is my first startup project on github with technologies: ASP.NET Core Web A
 
 
 Для запуска проекта:
-1)Склонируйте репозиторий к себе на диск.
+1)Склонируйте репозиторий к себе на диск. Обновить локальный репозиторий PgDbInterface при помощи Submodule Update. (Например в TortoiseGit>>SubmoduleUpdate)
 
 2) Должен быть установлен Angular (у меня стоит версия 13).
 3) БД была выбрана PostgreSQL(если такой нет, то нужно установить), для работы приложения с БД необходимо будет выполнить команду в package manager console (от Nuget) : PM> update-database. Следует обратить внимание, что в поле Default project  должен быть выбран проект .DAL![image](https://user-images.githubusercontent.com/82929837/143284031-26fadf4b-65bd-4025-90dd-df5bee39035a.png)
